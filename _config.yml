@@ -1,3 +1,4 @@
+
 # Site settings
 title: Hux Blog
 SEOTitle: 黄玄的博客 | Hux Blog
@@ -126,3 +127,6 @@ friends: [
         href: "http://xieminis.me/"
     }
 ]
+
+theme: jekyll-theme-cayman
+
