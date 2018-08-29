@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "关于 Nacos 的导图整理"
+title:      "关于 Nacos 的整理"
 subtitle:   "动态服务发现、配置管理和服务管理平台"
 date:       2018-08-29 12:18:22
 author:     "于磊"

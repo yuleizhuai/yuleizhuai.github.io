@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "关于 Sentinel 的导图整理"
+title:      "关于 Sentinel 的整理"
 subtitle:   "分布式系统的流量防卫兵"
 date:       2018-08-27 19:58:11
 author:     "于磊"
