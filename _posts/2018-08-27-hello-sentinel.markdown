@@ -12,7 +12,7 @@ tags:
 
 
 
-### 脑图
+### 脑图 [【点我下载】](https://github.com/yuleizhuai/resources/blob/master/technology/Sentinel/Sentinel.pdf)
 
 ![Sentinel](/img/sentinel/Sentinel.jpg)
 
