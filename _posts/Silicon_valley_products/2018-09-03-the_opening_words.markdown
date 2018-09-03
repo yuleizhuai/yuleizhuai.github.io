@@ -4,7 +4,7 @@ title:      "【整理】开篇词 | 打造千万用户的世界级产品"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-03 15:10:31
 author:     "于磊"
-header-img: "img/silicon_valley_products/background.jpg"
+header-img: "img/silicon_valley_products/the_opening_words_bg.jpg"
 catalog: true
 tags:
     - 曲晓音
