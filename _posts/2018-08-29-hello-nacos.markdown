@@ -4,7 +4,7 @@ title:      "关于 Nacos 的整理"
 subtitle:   "动态服务发现、配置管理和服务管理平台"
 date:       2018-08-29 12:18:22
 author:     "于磊"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-alibaba.jpg"
 catalog: true
 tags:
     - Nacos
