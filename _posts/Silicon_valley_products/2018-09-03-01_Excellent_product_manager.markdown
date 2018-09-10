@@ -15,7 +15,7 @@ tags:
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/blob/master/management/NPDP/Silicon_valley_products/Excellent_product_manager.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/blob/master/management/NPDP/Silicon_valley_products/01Excellent_product_manager.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/Excellent_product_manager_mind.jpg)
 
