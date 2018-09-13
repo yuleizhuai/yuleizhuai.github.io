@@ -29,21 +29,21 @@ tags:
 
 ### [开篇词 | 打造千万用户的世界级产品](https://yulei.vip/2018/09/03/the_opening_words/)
 
-### 【待整理】01 | 什么是优秀的产品经理？
+### [01 | 什么是优秀的产品经理？](https://yulei.vip/2018/09/03/01_Excellent_product_manager/)
 
-### 【待整理】02 | 硅谷的产品经理是什么样子的？
+### [02 | 硅谷的产品经理是什么样子的？](https://yulei.vip/2018/09/04/02What_the_product_manager_looks_like/)
 
-### 【待整理】03 | 科技巨头和初创公司的产品经理有什么不同？
+### [03 | 科技巨头和初创公司的产品经理有什么不同？](https://yulei.vip/2018/09/06/03The_difference_between_product_managers/)
 
-### 【待整理】04 | 产品经理和项目经理有什么区别？
+### [04 | 产品经理和项目经理有什么区别？](https://yulei.vip/2018/09/07/04Two_PM_Different/)
 
-### 【待整理】05 | 硅谷产品经理每天在做什么？
+### [05 | 硅谷产品经理每天在做什么？](https://yulei.vip/2018/09/08/05WhatToDoEveryDay/)
 
-### 【待整理】06 | 硅谷产品经理们都来自什么背景？
+### [06 | 硅谷产品经理们都来自什么背景？](https://yulei.vip/2018/09/10/06FromWhatBackground/)
 
-### 【待整理】07 | 如何寻找用户需求？
+### [07 | 如何寻找用户需求？](https://yulei.vip/2018/09/12/07LookingForDemand/)
 
-### 【待整理】08 | 目标客户和用户画像
+### [08 | 目标客户和用户画像](https://yulei.vip/2018/09/13/08TargetCustomersAndUserProfile/)
 
 ### 【待整理】09 | 手把手教你写用例：优化微信好友的功能
 
