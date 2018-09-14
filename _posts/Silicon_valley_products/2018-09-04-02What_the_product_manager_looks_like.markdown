@@ -15,7 +15,7 @@ tags:
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/blob/master/management/NPDP/Silicon_valley_products/02What_the_product_manager_looks_like.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/02What_the_product_manager_looks_like.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/02What_the_product_manager_looks_like.jpg)
 

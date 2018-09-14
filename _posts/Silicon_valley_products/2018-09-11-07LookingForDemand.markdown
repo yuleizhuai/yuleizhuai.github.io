@@ -15,7 +15,7 @@ tags:
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/blob/master/management/NPDP/Silicon_valley_products/07LookingForDemand.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/07LookingForDemand.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/07LookingForDemand.jpg)
 

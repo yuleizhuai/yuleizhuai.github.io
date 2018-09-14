@@ -15,7 +15,7 @@ tags:
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/blob/master/management/NPDP/Silicon_valley_products/04TWO_PM_Different.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/04TWO_PM_Different.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/04TWO_PM_Different.jpg)
 

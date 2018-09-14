@@ -17,7 +17,7 @@ tags:
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/blob/master/management/NPDP/Silicon_valley_products/silicon_valley_products.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/silicon_valley_products.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/silicon_valley_products.jpg)
 
@@ -45,7 +45,7 @@ tags:
 
 ### [08 | 目标客户和用户画像](https://yulei.vip/2018/09/13/08TargetCustomersAndUserProfile/)
 
-### 【待整理】09 | 手把手教你写用例：优化微信好友的功能
+### [09 | 手把手教你写用例：优化微信好友的功能](https://yulei.vip/2018/09/14/09UserCase/)
 
 ### 【待整理】10 | 什么是最小化可行产品（MVP）？
 
