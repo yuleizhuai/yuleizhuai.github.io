@@ -183,7 +183,7 @@ tags:
   4.大公司办公室政治会有时候让你有力无处使，挫伤积极性
   5.要学会给自己争取资源
 
-
+![silicon_valley_products](/img/silicon_valley_products/share.jpeg)
 
 
 

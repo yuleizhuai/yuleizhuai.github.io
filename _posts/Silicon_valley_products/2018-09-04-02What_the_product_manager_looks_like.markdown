@@ -123,7 +123,7 @@ tags:
 
 第二个，硅谷有着较重的工程师主导产品开发的文化，因此外界对硅谷产品经理的职责和权力有很多猜测和想法，不知在你的公司是产品经理导向还是工程师导向呢？
 
-
+![silicon_valley_products](/img/silicon_valley_products/share.jpeg)
 
 
 

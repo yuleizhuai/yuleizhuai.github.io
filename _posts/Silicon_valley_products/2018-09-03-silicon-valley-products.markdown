@@ -102,3 +102,5 @@ tags:
 ### 【待整理】36 | 模拟一场硅谷的产品经理面试
 
 ### 【待整理】尾声 | 每个世界级的产品都有其使命
+
+![silicon_valley_products](/img/silicon_valley_products/share.jpeg)
