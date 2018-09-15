@@ -1,0 +1,66 @@
+---
+layout:     post
+title:      "NPDP 第一堂课的脑图作业"
+subtitle:   "讲师：张在旺"
+date:       2018-09-16 01:00:19
+author:     "于磊"
+header-img: "img/npdp_lesson/01_bg.jpeg"
+catalog: true
+tags:
+    - 产品经理
+    - NPDP
+
+---
+
+
+
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/lesson/NPDP-1809-Lesson1.pdf)】
+
+![npdp_lesson](/img/npdp_lesson/01.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
