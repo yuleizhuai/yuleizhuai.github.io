@@ -17,7 +17,7 @@ tags:
 
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/the_opening_words.pdf)】
 
-![silicon_valley_products](/img/silicon_valley_products/the_opening_words.jpg)
+![silicon_valley_products](/img/silicon_valley_products/the_opening_words.png)
 
 
 
