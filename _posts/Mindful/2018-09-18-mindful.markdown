@@ -1,26 +1,27 @@
 ---
 layout:     post
 title:      "【目录】每天正念10分钟，告别心理亚健康"
-subtitle:   "来自：壹心理与睿心"
+subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
 date:       2018-09-18 18:37:04
 author:     "于磊"
 header-img: "img/home-bg5.jpg"
 catalog: true
 tags:
     - 正念冥想
+    - 壹心理
     - 心理学
 
 ---
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/lesson/NPDP-1809-Lesson1.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/psychology/mindful/mindful_directory.png)】
 
 ![mindful_directory](/img/mindful/mindful_directory.png)
 
 
 
-### 【待整理】课程介绍
+### [开篇词 | 用正念给自己减压](http://yulei.vip/2018/09/19/the_opening_words/)
 
 ### 【待整理】第一章：正念基础
 
@@ -109,6 +110,10 @@ tags:
 #### 第39天 - 正念生活 | 培育感恩的心
 
 #### 第40天 - 正念生活 | 期许和愿景
+
+
+
+![mindful_directory](/img/mindful/share.jpeg)
 
 
 
