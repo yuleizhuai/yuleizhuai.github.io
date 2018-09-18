@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】06 | 硅谷产品经理们都来自什么背景？"
+title:      "06 | 硅谷产品经理们都来自什么背景？"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-10 12:18:15
 author:     "于磊"

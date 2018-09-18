@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】开篇词 | 打造千万用户的世界级产品"
+title:      "开篇词 | 打造千万用户的世界级产品"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-03 15:10:31
 author:     "于磊"
@@ -18,10 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/the_opening_words.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/the_opening_words.png)
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】03 | 科技巨头和初创公司的产品经理有什么区别？"
+title:      "03 | 科技巨头和初创公司的产品经理有什么区别？"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-06 12:39:42
 author:     "于磊"
@@ -18,14 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/03The_difference_between_product_managers.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/03The_difference_between_product_managers.png)
-
-
-
-
-
-
-
-
 
 
 

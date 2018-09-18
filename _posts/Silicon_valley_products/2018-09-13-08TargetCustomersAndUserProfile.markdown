@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】08 | 目标客户和用户画像"
+title:      "08 | 目标客户和用户画像"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-13 15:12:11
 author:     "于磊"
@@ -18,8 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/08TargetCustomersAndUserProfile.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/08TargetCustomersAndUserProfile.png)
-
-
 
 
 

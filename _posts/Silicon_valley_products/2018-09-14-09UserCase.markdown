@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】09 | 手把手教你写用例优化微信加好友的功能"
+title:      "09 | 手把手教你写用例优化微信加好友的功能"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-14 15:09:39
 author:     "于磊"
@@ -18,8 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/09UserCase.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/09UserCase.png)
-
-
 
 
 

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】硅谷产品实战36讲"
+title:      "【目录】硅谷产品实战36讲"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-03 15:10:31
 author:     "于磊"
@@ -20,10 +20,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/silicon_valley_products.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/silicon_valley_products.jpg)
-
-
-
-
 
 
 

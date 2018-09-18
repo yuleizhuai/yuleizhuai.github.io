@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】01 | 什么是优秀的产品经理"
+title:      "01 | 什么是优秀的产品经理"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-03 23:34:02
 author:     "于磊"

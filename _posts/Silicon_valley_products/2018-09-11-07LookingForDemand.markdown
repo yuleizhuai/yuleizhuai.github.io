@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】07 | 如何寻找用户需求？"
+title:      "07 | 如何寻找用户需求？"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-12 09:55:13
 author:     "于磊"
@@ -18,10 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/07LookingForDemand.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/07LookingForDemand.png)
-
-
-
-
 
 
 

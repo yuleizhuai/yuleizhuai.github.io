@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】02 | 硅谷的产品经理是什么样子的？"
+title:      "02 | 硅谷的产品经理是什么样子的？"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-04 20:00:00
 author:     "于磊"
@@ -18,10 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/02What_the_product_manager_looks_like.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/02What_the_product_manager_looks_like.png)
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】10 | 什么是最小化可行产品（MVP）"
+title:      "10 | 什么是最小化可行产品（MVP）"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-17 17:26:28
 author:     "于磊"
@@ -18,8 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/10MVP.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/10MVP.png)
-
-
 
 
 

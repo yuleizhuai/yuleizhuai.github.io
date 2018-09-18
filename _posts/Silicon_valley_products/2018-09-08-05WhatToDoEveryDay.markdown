@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "【整理】05 | 硅谷产品经理每天在做什么？"
+title:      "05 | 硅谷产品经理每天在做什么？"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-08 16:04:44
 author:     "于磊"
@@ -18,12 +18,6 @@ tags:
 ### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/05WhatToDoEveryDay.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/05WhatToDoEveryDay.png)
-
-
-
-
-
-
 
 
 
