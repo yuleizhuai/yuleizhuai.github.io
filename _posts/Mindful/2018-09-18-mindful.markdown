@@ -4,7 +4,7 @@ title:      "【目录】每天正念10分钟，告别心理亚健康"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
 date:       2018-09-18 18:37:04
 author:     "于磊"
-header-img: "img/Mindful/yoga-prielbrusje.jpg"
+header-img: "img/mindful/yoga-prielbrusje.jpg"
 catalog: true
 tags:
     - 正念冥想

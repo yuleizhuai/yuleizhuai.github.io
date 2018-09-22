@@ -4,7 +4,7 @@ title:      "第2天 - 正念基础 | 有意识的放松"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
 date:       2018-09-20 23:48:54
 author:     "于磊"
-header-img: "img/Mindful/yoga-prielbrusje.jpg"
+header-img: "img/mindful/yoga-prielbrusje.jpg"
 catalog: true
 tags:
     - 正念冥想
