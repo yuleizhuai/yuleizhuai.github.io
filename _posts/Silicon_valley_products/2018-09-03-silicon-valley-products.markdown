@@ -43,13 +43,13 @@ tags:
 
 ### [09 | 手把手教你写用例：优化微信好友的功能](https://yulei.vip/2018/09/14/09UserCase/)
 
-### [10 | 什么是最小化可行产品（MVP）？](https://yulei.vip/2018/09/18/10MVP/)
+### [10 | 什么是最小化可行产品（MVP）？](https://yulei.vip/2018/09/17/10MVP/)
 
-### 【待整理】11 | 案例：产品发布之前出了乱子，如何权衡取舍？
+### [11 | 案例：产品发布之前出了乱子，如何权衡取舍？](https://yulei.vip/2018/09/21/11How_to_trade_off/)
 
-### 【待整理】12 | 制定产品成功指标
+### [12 | 制定产品成功指标](https://yulei.vip/2018/09/23/12Develop_product_success_indicators/)
 
-### 【待整理】13 | 如何撰写产品需求文档？
+### [13 | 如何撰写产品需求文档？](https://yulei.vip/2018/09/25/13How_to_document_product_requirements/)
 
 ### 【待整理】14 | 如何用数据做出产品决定？
 
