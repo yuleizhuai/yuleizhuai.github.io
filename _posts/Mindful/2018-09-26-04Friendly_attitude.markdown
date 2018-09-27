@@ -4,7 +4,7 @@ title:      "第4天 - 正念基础 | 友善的态度"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
 date:       2018-09-26 11:24:11
 author:     "于磊"
-header-img: "img/mindful/yoga-prielbrusje.jpg"
+header-img: "img/home-bg5.jpg"
 catalog: true
 tags:
     - 正念冥想
