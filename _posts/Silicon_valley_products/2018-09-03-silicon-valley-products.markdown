@@ -51,7 +51,7 @@ tags:
 
 ### [13 | 如何撰写产品需求文档？](https://yulei.vip/2018/09/25/13How_to_document_product_requirements/)
 
-### 【待整理】14 | 如何用数据做出产品决定？
+### [14 | 如何用数据做出产品决定？](https://yulei.vip/2018/09/28/14How_do_you_use_data_to_make_product_decisions/)
 
 ### 【待整理】15 | 如何组织有效的会议？
 
