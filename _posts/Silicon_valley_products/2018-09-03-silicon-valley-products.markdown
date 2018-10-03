@@ -53,9 +53,9 @@ tags:
 
 ### [14 | 如何用数据做出产品决定？](https://yulei.vip/2018/09/28/14How_do_you_use_data_to_make_product_decisions/)
 
-### 【待整理】15 | 如何组织有效的会议？
+### [15 | 如何组织有效的会议？](https://yulei.vip/2018/09/28/15How_to_organize_effective_meetings/)
 
-### 【待整理】16 | 如何和工程师有效沟通？
+### [16 | 如何和工程师有效沟通？](https://yulei.vip/2018/10/04/16How_to_communicate_effectively_with_engineers/)
 
 ### 【待整理】17 | 如何与设计师有效沟通？
 
