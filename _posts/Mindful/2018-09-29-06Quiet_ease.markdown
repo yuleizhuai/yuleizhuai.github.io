@@ -4,7 +4,7 @@ title:      "第6天 - 正念基础 | 伴随呼吸的平静和稳定"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
 date:       2018-09-29 10:30:21
 author:     "于磊"
-header-img: "img/mindful/05_bg.jpeg"
+header-img: "img/mindful/06_bg.jpg"
 catalog: true
 tags:
     - 正念冥想
