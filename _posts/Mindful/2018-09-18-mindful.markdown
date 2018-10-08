@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "【目录】每天正念10分钟，告别心理亚健康"
+title:      "<span style='color:red'>【置顶】</span>每天正念10分钟，告别心理亚健康"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-09-18 18:37:04
+date:       2088-09-18 18:37:04
 author:     "于磊"
 header-img: "img/mindful/yoga-prielbrusje.jpg"
 catalog: true
@@ -39,9 +39,9 @@ tags:
 
 #### [第7天 - 正念基础 | 数呼吸](https://yulei.vip/2018/10/04/07Number_of_breathing/)
 
-#### 【待整理】第8天 - 正念基础 | 深入专注力
+#### [第8天 - 正念基础 | 深入专注力](https://yulei.vip/2018/10/09/08Deap_focus/)
 
-#### 第9天 - 正念基础 | 身体的正念
+#### 【待整理】第9天 - 正念基础 | 身体的正念
 
 #### 第10天 - 正念基础 | 由内而外的感受
 
