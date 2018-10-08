@@ -57,7 +57,7 @@ tags:
 
 ### [16 | 如何和工程师有效沟通？](https://yulei.vip/2018/10/04/16How_to_communicate_effectively_with_engineers/)
 
-### 【待整理】17 | 如何与设计师有效沟通？
+### [17 | 如何与设计师有效沟通？](https://yulei.vip/2018/10/09/17How_to_communicate_effectively_with_designers/)
 
 ### 【待整理】18 | 如何搞定 A/B 测试？
 
