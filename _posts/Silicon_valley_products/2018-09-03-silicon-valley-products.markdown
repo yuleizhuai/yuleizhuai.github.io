@@ -59,9 +59,9 @@ tags:
 
 ### [17 | 如何与设计师有效沟通？](https://yulei.vip/2018/10/09/17How_to_communicate_effectively_with_designers/)
 
-### 【待整理】18 | 如何搞定 A/B 测试？
+### [18 | 如何搞定 A/B 测试？](https://yulei.vip/2018/10/08/18How_to_handle_AB_testing/)
 
-### 【待整理】19 | 增长黑客的核心公式
+### [19 | 增长黑客的核心公式](https://yulei.vip/2018/10/10/19Growth_hacker/)
 
 ### 【待整理】20 | 想要增长，你的团队需要高效的工作流
 
