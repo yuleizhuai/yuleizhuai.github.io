@@ -65,7 +65,7 @@ tags:
 
 ### [20 | 想要增长，你的团队需要高效的工作流](https://yulei.vip/2018/10/14/20Services_for_product_growth/)
 
-### 【待整理】21 | 换个按钮颜色，就能增长百万用户？
+### [21 | 换个按钮颜色，就能增长百万用户？](https://yulei.vip/2018/10/17/21The_midas_touch/)
 
 ### 【待整理】22 | 硅谷高管的 UIE（Understand,Identify,Execute）增长论
 

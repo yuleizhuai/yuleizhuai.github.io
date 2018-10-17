@@ -15,7 +15,7 @@ tags:
 
 
 
-### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/20Services_for_product_growth.pdf)】
+### 脑图 【[点我下载](https://github.com/yuleizhuai/resources/raw/master/management/NPDP/Silicon_valley_products/21The_midas_touch.pdf)】
 
 ![silicon_valley_products](/img/silicon_valley_products/21The_midas_touch.png)
 
