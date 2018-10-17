@@ -1,0 +1,263 @@
+---
+layout:     post
+title:      "M001: MongoDB Basics"
+subtitle:   "Introduction to MongoDB, Compass, and Basic Queries. Create, Read, Update, and Delete (CRUD) operations; cursors, projections, Atlas free-tier basics. Query operators: element operators, logical operators, array operators, and the regex operator. Any topic in this course might be addressed in the final exam."
+date:       2018-10-16 10:57:02
+author:     "于磊"
+header-img: "img/mongoDB/Java_Developers/bg.png"
+catalog: true
+tags:
+    - MongoDB
+    - Java
+
+---
+
+
+
+### 01-Introduction
+
+> Introduction to MongoDB, Compass, and Basic Queries
+
+#### Welcome!
+
+Problem:
+
+What resources are available to help you complete this course?
+
+Check all answers that apply:
+
+- An in-class discussion forum where you can ask questions and help your fellow learners
+
+- Teaching assistants to field questions and provide guidance on the course
+
+- Mobile apps for iOS and Android to support download of videos for offline viewing
+
+
+
+#### Grading and Logistics
+
+Problem:
+
+Which of the following count toward your final grade?
+
+- Labs (also called homework)
+
+- Final exam
+
+
+
+#### Are you Behind a Firewall?
+
+1. Connect to the host and port of the Atlas cluster with:
+
+```
+telnet cluster0-shard-00-00-jxeqq.mongodb.net 27017
+```
+
+1. Simpler test to see if you can reach Atlas
+
+```
+ping cluster0-shard-00-00-jxeqq.mongodb.net
+```
+
+
+
+#### Connecting to MongoDB Using Compass
+
+1. Please download Compass from the [MongoDB Download Center](https://www.mongodb.com/download-center/v2/compass) . If you downloaded Compass before today, please make sure you are using **Compass 1.15.4 (Stable)** version or later and upgrade if necessary.
+
+2. Install Compass on your computer from the download. Please, either update or install **Compass 1.15.4 (Stable)**version or later.
+
+3. Launch Compass.
+
+4. Use the following information to complete this form, but do not click "Connect" yet.
+
+   **Hostname:** `cluster0-shard-00-00-jxeqq.mongodb.net`
+
+   **Username:** `m001-student`
+
+   **Password:** `m001-mongodb-basics`
+
+   **Replica Set Name:** `Cluster0-shard-0`
+
+   **Read Preference:** `Primary Preferred`
+
+5. Click "Add to Favorites" and enter `M001 RS` as the **Favorite Name**. Adding this connection as a favorite will enable you to easily connect to our class MongoDB deployment after closing and restarting Compass at some point in the future.
+
+6. Now, click "Connect" and load the databases in the M001 class MongoDB deployment.
+
+
+
+#### Databases, Collections, and Documents
+
+Problem:
+
+Which of the following statements are true? Check all that apply.
+
+- Documents are stored in collections.
+
+- A database may contain one or more collections.
+
+- Each database and collection combination define a namespace.
+
+- We won't talk about indexes too much in the course, but you can learn about indexes in M201: MongoDB Performance.
+
+
+
+#### Lab 1.1: Install Compass and Connect
+
+**Question** Which of the following field names appear in documents in the movies collection of the video database. Check all that apply.
+
+- _id
+
+- cast
+
+- director
+
+- genre
+
+- plot
+
+
+
+#### Documents: Scalar Value Types
+
+Problem:
+
+Based on the field depicted below, which of the following are true?
+
+- Not all documents in this collection have the same value type for this field.
+
+- Most of the documents in this collection contain int32 values for this field.
+
+
+
+#### Lab 1.2: Determine the Value Type, Part 1
+
+Problem:
+
+What is the value type of the `ts` field for documents in the `100YWeatherSmall.data` collection?
+
+- date
+
+
+
+#### Lab 1.3: Determine the Value Type, Part 2
+
+Problem:
+
+What is the value type of the `airTemperature` field for documents in the `100YWeatherSmall.data`collection?
+
+- document
+
+
+
+#### Lab 1.4: Determine the Value Type, Part 3
+
+Problem:
+
+What is the value type of the `year` field for documents in the `video.movies` collection?
+
+- document
+
+
+
+#### MongoDB Documents: Geospatial Data
+
+Lecture Notes
+
+**Enable Geographical Visualizations**
+
+MongoDB Compass uses a 3rd party plugin for the geographical visualization of geospatial fields in your documents.
+
+If you are not able to see a map box in your *Schema* tab, when analyzing the `coordinates` field of `ships.shipwrecks`, you should check the option to enable geographical visualization.
+
+To do that you will have to click on the menu:
+
+```
+Help -> Privacy Settings
+```
+
+and then enable this feature.
+
+
+
+Problem:
+
+Which of the following are types of data Compass (and MongoDB) recognizes and specifically supports?
+
+- documents
+
+- arrays
+
+- geospatial data
+
+
+
+#### Filtering Collections with Queries
+
+Problem:
+
+Which of statements below best describes the following filter?
+
+```
+{"age": {"$gte": 21, "$lt": 70}}
+```
+
+- Find all documents for which the `age` field has a value that is >= 21 and < 70.
+
+
+
+#### Lab 1.5: Scavenger Hunt, Part 1
+
+Problem:
+
+How many movies in the video collection were directed by Patty Jenkins. Stated more precisely, how many documents in the video.movies collection have a value of "Patty Jenkins" for the director field?
+
+- 6
+
+
+
+#### Lab 1.6: Scavenger Hunt, Part 2
+
+Problem:
+
+How many documents in the `citibike.trips` collection have a tripduration that is greater than or equal to 60 and less than 65?
+
+- 754
+
+
+
+#### Lab 1.7: Scavenger Hunt, Part 3
+
+Problem:
+
+Based on our shipwrecks dataset, how many shipwrecks lay off the coast of Cancun / Isla Mujeres, Mexico? Choose the answer that best describes the number of shipwrecks you are able to find using Compass.
+
+- 0-10
+
+
+
+#### Understanding JSON
+
+Lecture Notes
+
+Please review the [JSON spec](http://www.json.org/) for more detail on the data types directly supported in JSON.
+
+Problem:
+
+Which of the following data types are directly supported by JSON per the JSON spec?
+
+- String
+
+- Array
+
+- Object
+
+- Boolean values (true and false)
+
+- Floating-point number
+
+- Null
+
+- Decimal number
