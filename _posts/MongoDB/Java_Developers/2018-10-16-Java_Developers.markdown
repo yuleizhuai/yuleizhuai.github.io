@@ -12,6 +12,8 @@ tags:
 
 ---
 
+> MongoDB Documentation: https://docs.mongodb.com
+
 
 
 ### Week 1: Introduction
@@ -757,4 +759,586 @@ The answer is: 523258
 ### Week 2: CRUD
 
 > Mongo Shell, Query Operators, Update Operators and a Few Commands
+
+#### [Creating Documents](https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/index.html)
+
+`db.collection.insertOne()` : Inserts a document into a collection.
+
+The [`insertOne()`](https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/#db.collection.insertOne) method has the following syntax:
+
+```
+db.collection.insertOne(
+   <document>,
+   {
+      writeConcern: <document>
+   }
+)
+
+```
+
+insertOne 练习：
+
+```shell
+# 使用 db.collection.insertOne() 插入一条文档记录，如果集合尚未存在，则创建集合
+db.moviesScratch.insertOne({"title":"Rockey","year":"1976","imdb":"tt0075148"})
+
+# MongoDB中的所有文档都会自动生成包含 _id (下划线的 id 唯一标识符)
+# 也可以手动插入 _id （作为唯一标识符）
+
+MongoDB Enterprise > db.moviesScratch.insertOne({"title": "Rocky","year": "1976"})
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("5bc6d2c0be888622623df40f")
+}
+MongoDB Enterprise > db.moviesScratch.insertOne({"title": "Rocky","year": "1976","_id": "tt0075148"})
+{ "acknowledged" : true, "insertedId" : "tt0075148" }
+MongoDB Enterprise > db.moviesScratch.find().pretty()
+{
+	"_id" : ObjectId("5bc6d2c0be888622623df40f"),
+	"title" : "Rocky",
+	"year" : "1976"
+}
+{ "_id" : "tt0075148", "title" : "Rocky", "year" : "1976" }
+MongoDB Enterprise >
+```
+
+
+
+`db.collection.insertMany()` : Inserts multiple documents into a collection.
+
+The [`insertMany()`](https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/#db.collection.insertMany) method has the following syntax:
+
+```
+db.collection.insertMany(
+   [ <document 1> , <document 2>, ... ],
+   {
+      writeConcern: <document>,
+      ordered: <boolean>
+   }
+)
+```
+
+insertMany 练习：
+
+```shell
+# 批量插入
+# ordered: true 代表默认执行有序插入，一旦遇到错误，它将停止插入文件
+# ordered: false 代表默认执行无序插入，一旦遇到错误，它将忽略继续插入文件
+db.moviesScratch.insertMany(
+    [
+        {
+	    "_id" : "tt0084726",
+	    "title" : "Star Trek II: The Wrath of Khan",
+	    "year" : 1982,
+	    "type" : "movie"
+        },
+        {
+	    "_id" : "tt0796366",
+	    "title" : "Star Trek",
+	    "year" : 2009,
+	    "type" : "movie"
+        },
+        {
+	    "_id" : "tt0084726",
+	    "title" : "Star Trek II: The Wrath of Khan",
+	    "year" : 1982,
+	    "type" : "movie"
+        },
+        {
+	    "_id" : "tt1408101",
+	    "title" : "Star Trek Into Darkness",
+	    "year" : 2013,
+	    "type" : "movie"
+        },
+        {
+	    "_id" : "tt0117731",
+	    "title" : "Star Trek: First Contact",
+	    "year" : 1996,
+	    "type" : "movie"
+        }
+    ],
+    {
+        "ordered": false 
+    }
+);
+```
+
+> 当 db.collection.updateOne() 或 db.collection.updateMany() 设置了 **upsert: true**时也可能触发新增文档
+
+
+
+#### The ` _id` Field
+
+MongoDB，如果我们不提供，则创建 `_id` 字段
+
+默认情况下，所有集合都有唯一的主索引在 `_id`  字段上
+
+默认情况下，MongoDB 为 `_id` 字段创建值，类型为 `ObjectId` ，这是 BSON 规范定义的值类型
+
+`ObjectId` 值都是12字节的十六进制字符串，前4个字节表示秒的值（自 Unix 时代的时间戳），以下的3个字符串是 MAC ADDR 机器标识符（它们是 MongoDB 所在机器的 Mac 地址），然后2个字节包含 ProcessID，最后3个字节是一个计数器。 确保所有 ObjectID都是唯一的，这就是 ObjectID 的构造方式。
+
+Returns a new [ObjectId](https://docs.mongodb.com/manual/reference/bson-types/#objectid) value. The 12-byte [ObjectId](https://docs.mongodb.com/manual/reference/bson-types/#objectid) value consists of:
+
+- a 4-byte value representing the seconds since the Unix epoch,
+- a 5-byte random value, and
+- a 3-byte counter, starting with a random value.
+
+
+
+#### Reading Documents
+
+`db.collection.find`(*query*, *projection*)
+
+Selects documents in a collection or view and returns a [cursor](https://docs.mongodb.com/manual/reference/glossary/#term-cursor) to the selected documents.
+
+查找文档练习：
+
+```shell
+db.movieDetails.find({"rated": "PG-13"}).pretty()
+
+# 识别嵌套文档的字段查询(通过使用点表示法将字段名称串联在一起，不要忘记引号)
+db.movieDetails.find({"tomato.meter": 100}).pretty()
+```
+
+
+
+使用 count 命令统计查询返回的文档数量结果
+
+Counts the number of documents referenced by a cursor. Append the [`count()`](https://docs.mongodb.com/manual/reference/method/cursor.count/index.html#cursor.count) method to a [`find()`](https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find) query to return the number of matching documents. The operation does not perform the query but instead counts the results that would be returned by the query.
+
+```shell
+db.movieDetails.find({"rated": "PG-13"}).count()
+```
+
+
+
+Equality Matches On Arrays(数组上的相等匹配)
+
+- On The Entire Array(匹配整个数组)
+- Based On Any Element(匹配基于数据中的任何元素)
+- Based On A Specific Element(匹配特定元素，比如只匹配第一个元素匹配的数组)
+- More Complex Matches Osing Operators(更复杂的匹配操作)
+
+数组匹配练习：
+
+```shell
+# 匹配数组中有两个元素，且按照顺序
+db.movieDetails.find({"writers": ["Ethan Coen", "Joel Coen"]}).count()
+
+# 匹配数组中的一个元素，无序
+db.movieDetails.find({"actors": "Jeff Bridges"}).pretty()
+
+# 匹配数组中的第一个元素
+db.movieDetails.find({"actors.0": "Jeff Bridges"}).pretty()
+```
+
+
+
+[Cursor 游标](https://docs.mongodb.com/manual/tutorial/iterate-a-cursor/index.html)
+
+```shell
+db.movieDetails.find({"rated": "PG"})
+# cursor.next 将执行更多遍历操作
+Type "it" for more 
+> it
+> it
+
+# 关注游标在 shell 中的工作方式
+# 分配游标，使用“var”关键字变量
+var c = db.movieDetails.find();
+# 创建一个函数使用此光标，首先检查是否存在
+var doc = function() { return c.hasNext() ? c.next: null;}
+# cursor.objsLeftInBatch() returns the number of documents remaining in the current batch. 返回当前批次中剩余的文档数量
+c.objsLeftInBatch(); # 101
+doc();
+doc();
+doc();
+doc();
+# 返回当前批次中剩余的文档数量为97
+c.objsLeftInBatch();
+```
+
+
+
+Projection 投影是一种减少方便的方法为任何一个查询返回的数据大小。预测可以减少网络开销和处理，限制返回字段的要求。
+
+```shell
+# 现在不是返回所有匹配的文档的所有字段，只会返回 _id,title 两个字段。默认情况下始终返回 _id 字段
+db.movieDetails.find({"rated": "PG"}, {title: 1}).pretty()
+
+# 通过简单地为 id 指定0来实现排除
+db.movieDetails.find({"rated": "PG"},{title: 1, _id: 0}).pretty()
+
+# 通过明确排除的字段来达到其他字段返回的写法
+db.movieDetails.find({"rated": "PG"},{writers: 0, actors:0, _id: 0}).pretty()
+```
+
+
+
+#### [Comparison Operators](https://docs.mongodb.com/manual/reference/operator/aggregation/)
+
+For comparison of different BSON type values, see the [specified BSON comparison order](https://docs.mongodb.com/manual/reference/bson-type-comparison-order/#bson-types-comparison-order).
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$eq`](https://docs.mongodb.com/manual/reference/operator/query/eq/#op._S_eq) | Matches values that are equal to a specified value.          |
+| [`$gt`](https://docs.mongodb.com/manual/reference/operator/query/gt/#op._S_gt) | Matches values that are greater than a specified value.      |
+| [`$gte`](https://docs.mongodb.com/manual/reference/operator/query/gte/#op._S_gte) | Matches values that are greater than or equal to a specified value. |
+| [`$in`](https://docs.mongodb.com/manual/reference/operator/query/in/#op._S_in) | Matches any of the values specified in an array.             |
+| [`$lt`](https://docs.mongodb.com/manual/reference/operator/query/lt/#op._S_lt) | Matches values that are less than a specified value.         |
+| [`$lte`](https://docs.mongodb.com/manual/reference/operator/query/lte/#op._S_lte) | Matches values that are less than or equal to a specified value. |
+| [`$ne`](https://docs.mongodb.com/manual/reference/operator/query/ne/#op._S_ne) | Matches all values that are not equal to a specified value.  |
+| [`$nin`](https://docs.mongodb.com/manual/reference/operator/query/nin/#op._S_nin) | Matches none of the values specified in an array.            |
+
+
+
+比较运算符查询练习
+
+```shell
+# 运行时间大于90分钟
+db.movieDetails.find({"runtime": {$gt: 90}}).pretty()
+    
+# 只显示电影标题和运行时间字段
+db.movieDetails.find({"runtime": {$gt: 90}}, {title: 1, runtime: 1, _id: 0}).pretty();
+
+# 运行时间大于等于90分钟，小于等于120分钟
+db.movieDetails.find({"runtime": {$gte: 90, $lte: 120}}).pretty();
+
+# 混合使用组合查询
+db.movieDetails.find({"tomato.meter": {$gte: 95}, runtime: {$gt: 180}}, {title: 1, runtime: 1, _id: 0}).pretty();
+
+# 不等于"未评级"的记录
+db.movieDetails.find({"rated": {$ne: "UNRATED"}}).count()
+
+# $in的值必须是数组，即将返回这三个值中的任何一个
+db.movieDetails.find({"rated": {$in: ["G", "PG", "PG-13"]}}).pretty()
+
+# $nin 是 $in 的反面，不存在
+```
+
+
+
+#### Element Operators
+
+| Name                                                         | Description                                            |
+| ------------------------------------------------------------ | ------------------------------------------------------ |
+| [`$exists`](https://docs.mongodb.com/manual/reference/operator/query/exists/#op._S_exists) | Matches documents that have the specified field.       |
+| [`$type`](https://docs.mongodb.com/manual/reference/operator/query/type/#op._S_type) | Selects documents if a field is of the specified type. |
+
+练习
+
+```shell
+# $exists 匹配字段存在或不存在的记录
+db.movieDetails.find({"tomato.meter": {$exists: true}})
+
+# $type 匹配字段的类型
+# 匹配字符串类型的字段
+db.movieDetails.find({"_id": {$type: "string"}}).pretty()
+```
+
+
+
+#### Logical Operators
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$and`](https://docs.mongodb.com/manual/reference/operator/query/and/#op._S_and) | Joins query clauses with a logical `AND` returns all documents that match the conditions of both clauses. |
+| [`$not`](https://docs.mongodb.com/manual/reference/operator/query/not/#op._S_not) | Inverts the effect of a query expression and returns documents that do *not* match the query expression. |
+| [`$nor`](https://docs.mongodb.com/manual/reference/operator/query/nor/#op._S_nor) | Joins query clauses with a logical `NOR` returns all documents that fail to match both clauses. |
+| [`$or`](https://docs.mongodb.com/manual/reference/operator/query/or/#op._S_or) | Joins query clauses with a logical `OR` returns all documents that match the conditions of either clause. |
+
+练习
+
+```shell
+# 或的限制
+# $or 将数组作为参数，我们在其中指定标准
+db.movieDetails.find({
+	$or: [{
+		"tomato.meter": {
+			$gt: 95
+		}
+	}, {
+		"metacritic": {
+			$gt: 88
+		}
+	}]
+}).pretty()
+
+# 和（并且）的限制
+# $and 将数组作为参数，我们在其中指定标准
+db.movieDetails.find({
+	$and: [{
+		"tomato.meter": {
+			$gt: 95
+		}
+	}, {
+		"metacritic": {
+			$gt: 88
+		}
+	}]
+}).pretty()
+# 相当于隐式的查询
+db.movieDetails.find({
+		"tomato.meter": {
+			$gt: 95
+		}
+	}, {
+		"metacritic": {
+			$gt: 88
+		}
+}).prety()
+## $and 的特别用处，同一个字段设置多个条件
+# 有效值查询：metacritic 不等于 null，并且要存在metacritic字段
+db.movieDetails.find({
+	$and: [{
+		"metacritic": {
+			$ne: null
+		}
+	}, {
+		"metacritic": {
+			$exists: true
+		}
+	}]
+}).pretty()
+```
+
+
+
+#### Regex Operator
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$expr`](https://docs.mongodb.com/manual/reference/operator/query/expr/#op._S_expr) | Allows use of aggregation expressions within the query language. |
+| [`$jsonSchema`](https://docs.mongodb.com/manual/reference/operator/query/jsonSchema/#op._S_jsonSchema) | Validate documents against the given JSON Schema.            |
+| [`$mod`](https://docs.mongodb.com/manual/reference/operator/query/mod/#op._S_mod) | Performs a modulo operation on the value of a field and selects documents with a specified result. |
+| [`$regex`](https://docs.mongodb.com/manual/reference/operator/query/regex/#op._S_regex) | Selects documents where values match a specified regular expression. |
+| [`$text`](https://docs.mongodb.com/manual/reference/operator/query/text/#op._S_text) | Performs text search.                                        |
+| [`$where`](https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where) | Matches documents that satisfy a JavaScript expression.      |
+
+允许我们使用正则表达式来匹配字段
+
+```shell
+# 使用正则表达匹配字符串
+# 以赢得一词开头
+db.movieDetails.find({"awards.text": {$regex: /^Won\s.*/}})
+```
+
+
+
+#### Array Operators
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$all`](https://docs.mongodb.com/manual/reference/operator/query/all/#op._S_all) | Matches arrays that contain all elements specified in the query. |
+| [`$elemMatch`](https://docs.mongodb.com/manual/reference/operator/query/elemMatch/#op._S_elemMatch) | Selects documents if element in the array field matches all the specified [`$elemMatch`](https://docs.mongodb.com/manual/reference/operator/query/elemMatch/#op._S_elemMatch)conditions. |
+| [`$size`](https://docs.mongodb.com/manual/reference/operator/query/size/#op._S_size) | Selects documents if the array field is a specified size.    |
+
+练习
+
+```shell
+# $all 用于匹配数组字段，必须全部包含在数组元素中
+db.movieDetails.find({
+	"genres": {
+		$all: ["Comedy", "Crime", "Drana"]
+	}
+}).pretty();
+
+# $size 匹配文档数组的长度
+db.movieDetails.find({"countries": {$size: 1}}).pretty()
+ 
+# 要对子文档或数组项执行查询，必须使用点符号。
+# 匹配数组中的每个元素选择文档，如果数组字段中的元素匹配所有指定的$elemMatchconditions。
+db.movieDetails.find({
+	boxOffice: {
+		$elemMatch: {
+			country: "UK",
+			revenue: {
+				$gt: 15
+			}
+		}
+	}
+}).pretty()
+
+```
+
+
+
+#### Updating Documents
+
+有一些情况，更新实际上可以创建文档
+
+MongoDB提供了三种不同的更新命令
+
+- Update One
+- Update Many
+- Replace One
+
+
+
+`db.collection.updateOne`(*filter*, *update*, *options*)
+
+Updates a single document within the collection based on the filter.
+
+The [`updateOne()`](https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/index.html#db.collection.updateOne) method has the following form:
+
+```
+db.collection.updateOne(
+   <filter>,
+   <update>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>,
+     arrayFilters: [ <filterdocument1>, ... ]
+   }
+)
+```
+
+updateOne 练习
+
+```shell
+# 第一个参数，首先制定过滤器或选择器，这将标识要更新的文档文档
+# 第二个参数，然后使用更新运算符指定要更新的内容
+
+# 更新匹配我们选择题的第一个
+db.movieDetails.updateOne({"title": "The Martian"}, {$set, {"poster": "http://www.baidu.com"}});
+
+# $set 更新字段，若不存在则增加此字段
+# $unset 将彻底消除这个字段
+# $min 取两个值的最小值
+# $max 取最大值
+# $inc 增量运算符
+
+db.movieDetails.updateOne({
+	"title": "The Martian"
+}, {
+	$inc: {
+		"tomato.reviews": 3,
+		"tomato.userReviews": 25
+	}
+})
+
+# $addToSet 仅当元素不存在于集合中时，才向数组中添加元素。
+# $push 增加一个元素到数组中
+db.movieDetails.updateOne({
+	"title": "The Martian"
+}, {
+	$push: {
+		reviews: {
+			ratting: 4.5,
+			date: ISODate("2018-10-17T17:44:34Z"),
+			reviewer: "Spencer H.",
+			text: "some text"
+		}
+	}
+});
+```
+
+Update Operators
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$currentDate`](https://docs.mongodb.com/manual/reference/operator/update/currentDate/#up._S_currentDate) | Sets the value of a field to current date, either as a Date or a Timestamp. |
+| [`$inc`](https://docs.mongodb.com/manual/reference/operator/update/inc/#up._S_inc) | Increments the value of the field by the specified amount.   |
+| [`$min`](https://docs.mongodb.com/manual/reference/operator/update/min/#up._S_min) | Only updates the field if the specified value is less than the existing field value. |
+| [`$max`](https://docs.mongodb.com/manual/reference/operator/update/max/#up._S_max) | Only updates the field if the specified value is greater than the existing field value. |
+| [`$mul`](https://docs.mongodb.com/manual/reference/operator/update/mul/#up._S_mul) | Multiplies the value of the field by the specified amount.   |
+| [`$rename`](https://docs.mongodb.com/manual/reference/operator/update/rename/#up._S_rename) | Renames a field.                                             |
+| [`$set`](https://docs.mongodb.com/manual/reference/operator/update/set/#up._S_set) | Sets the value of a field in a document.                     |
+| [`$setOnInsert`](https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/#up._S_setOnInsert) | Sets the value of a field if an update results in an insert of a document. Has no effect on update operations that modify existing documents. |
+| [`$unset`](https://docs.mongodb.com/manual/reference/operator/update/unset/#up._S_unset) | Removes the specified field from a document.                 |
+
+Array Operators
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$addToSet`](https://docs.mongodb.com/manual/reference/operator/update/addToSet/#up._S_addToSet) | Adds elements to an array only if they do not already exist in the set. |
+| [`$pop`](https://docs.mongodb.com/manual/reference/operator/update/pop/#up._S_pop) | Removes the first or last item of an array.                  |
+| [`$pull`](https://docs.mongodb.com/manual/reference/operator/update/pull/#up._S_pull) | Removes all array elements that match a specified query.     |
+| [`$push`](https://docs.mongodb.com/manual/reference/operator/update/push/#up._S_push) | Adds an item to an array.                                    |
+| [`$pullAll`](https://docs.mongodb.com/manual/reference/operator/update/pullAll/#up._S_pullAll) | Removes all matching values from an array.                   |
+
+Modifiers
+
+| Name                                                         | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`$each`](https://docs.mongodb.com/manual/reference/operator/update/each/#up._S_each) | Modifies the [`$push`](https://docs.mongodb.com/manual/reference/operator/update/push/#up._S_push) and [`$addToSet`](https://docs.mongodb.com/manual/reference/operator/update/addToSet/#up._S_addToSet) operators to append multiple items for array updates. |
+| [`$position`](https://docs.mongodb.com/manual/reference/operator/update/position/#up._S_position) | Modifies the [`$push`](https://docs.mongodb.com/manual/reference/operator/update/push/#up._S_push) operator to specify the position in the array to add elements. |
+| [`$slice`](https://docs.mongodb.com/manual/reference/operator/update/slice/#up._S_slice) | Modifies the [`$push`](https://docs.mongodb.com/manual/reference/operator/update/push/#up._S_push) operator to limit the size of updated arrays. |
+| [`$sort`](https://docs.mongodb.com/manual/reference/operator/update/sort/#up._S_sort) | Modifies the [`$push`](https://docs.mongodb.com/manual/reference/operator/update/push/#up._S_push) operator to reorder documents stored in an array. |
+
+
+
+`db.collection.updateMany`(*filter*, *update*, *options*)
+
+Updates multiple documents within the collection based on the filter.
+
+The [`updateMany()`](https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/index.html#db.collection.updateMany) method has the following form:
+
+```
+db.collection.updateMany(
+   <filter>,
+   <update>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>,
+     arrayFilters: [ <filterdocument1>, ... ]
+   }
+)
+```
+
+匹配过滤器完成批量更新
+
+```shell
+# 查看字段值为 null的记录
+db.movieDetails.find({rated: null}).count()
+# 查看字段值为 UNRATED 的记录
+db.movieDetails.find({rated:"UNRATED"}).count()
+
+# 查询 rated为 null的记录，更新为 UNRATED
+db.movieDetails.updateMany({"rated": null}, {$set: {"rated": "UNRATED"}});
+
+# 查询 rated 为 null 的记录，并将删除它们
+db.movieDetails.updateMany({"rated": null}, {$unset: {"rated"}})
+```
+
+Upserts: 如果找不到与我们的过滤器匹配的文档，插入一个新文件
+
+```shell
+# detail 为 定义的一个 var 对象
+# {upsert: true} 如果这个过滤器不匹配，将继续插入它
+# 你想要对文档进行某种类型的更新，但是如果没有该文件，你想继续使用创建一个新的
+db.movieDetails.updateOne({"imdb.id": detail.imdb.id}, {$set: detail}, {upsert: true});
+```
+
+
+
+`db.collection.replaceOne`(*filter*, *replacement*, *options*)
+
+Replaces a single document within the collection based on the filter.
+
+The [`replaceOne()`](https://docs.mongodb.com/manual/reference/method/db.collection.replaceOne/index.html#db.collection.replaceOne) method has the following form:
+
+```
+db.collection.replaceOne(
+   <filter>,
+   <replacement>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>
+   }
+)
+```
+
+与更新命令一样，Replace One 采用过滤器
+
+```shell
+db.movies.replaceOne({"imdb":detail.imdb.id}, detail)
+```
+
+
+
+#### The MongoDB Java Driver
 
