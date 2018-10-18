@@ -67,7 +67,7 @@ tags:
 
 ### [21 | 换个按钮颜色，就能增长百万用户？](https://yulei.vip/2018/10/17/21The_midas_touch/)
 
-### 【待整理】22 | 硅谷高管的 UIE（Understand,Identify,Execute）增长论
+### [22 | 硅谷高管的 UIE（Understand,Identify,Execute）增长论](https://yulei.vip/2018/10/18/22UIE_Growth_theory/)
 
 ### 【待整理】23 | 增长的核心在于减少用户阻力
 
