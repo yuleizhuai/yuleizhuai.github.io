@@ -1342,3 +1342,1729 @@ db.movies.replaceOne({"imdb":detail.imdb.id}, detail)
 
 #### The MongoDB Java Driver
 
+1. 增加依赖
+
+   ```xml
+   <dependency>
+       <groupId>org.mongodb</groupId>
+       <artifactId>mongo-java-driver</artifactId>
+       <version>3.8.2</version>
+   </dependency>
+   ```
+
+2. 查看 API
+
+   ```java
+   public class App {
+   
+     public static void main(String[] args) {
+       // 默认构造函数连接的是本机 localhost 27107 端口
+       // MongoClient client = new MongoClient();
+   
+       // 使用 MongoClient(String host, int port) 有参构造函数
+       // MongoClient client = new MongoClient("localhost", 27107);
+   
+       // 使用 MongoClient(ServerAddress addr) 有参构造函数
+       // MongoClient client = new MongoClient(new ServerAddress("localhost", 27107));
+   
+       // 使用 MongoClient(List<ServerAddress> seeds) 有参构造函数连接到 MongoDB 集群
+       // MongoClient client = new MongoClient(Arrays.asList(new ServerAddress("localhost", 27107)));
+   
+       // 使用 MongoClient(MongoClientURI uri) 连接字符串来连接
+       // MongoClient client = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+   
+       // 使用 MongoClient(final ServerAddress addr, final MongoClientOptions options) 构造连接，设置每个主机的最大连接数。
+       MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(500).build();
+       MongoClient client = new MongoClient(new ServerAddress(), options);
+   
+       // 获得数据库
+       MongoDatabase database = client.getDatabase("test");
+   
+       // 获得 collection
+       MongoCollection<Document> collection = database.getCollection("test");
+       MongoCollection<BsonDocument> collection1 = database.getCollection("test", BsonDocument.class);
+     }
+   }
+   ```
+
+
+#### Java driver, document representation
+
+练习
+
+```java
+public class DocumentTest {
+
+  public static void main(String[] args) {
+
+    // 不是类型安全的
+    Document document = new Document()
+        .append("str", "Hello MongoDB")
+        .append("int", 42)
+        .append("l", 1L)
+        .append("double", 1.1)
+        .append("b", false)
+        .append("date", new Date())
+        .append("ObjectId", new ObjectId())
+        .append("null", null)
+        .append("embeddedDoc", new Document("x", 0))
+        .append("list", Arrays.asList(1, 2, 3));
+
+    String str = document.getString("str");
+    Integer integer = document.getInteger("int");
+    Helpers.printJson(document);
+
+    // 推荐使用 BsonDocument
+    BsonDocument bsonDocument = new BsonDocument("str", new BsonString("MongoDB, HELLO"));
+  }
+}
+
+public class Helpers {
+
+  public static void printJson(Document document) {
+//    JsonWriterSettings.builder().outputMode(JsonMode.SHELL).build()
+//    new JsonWriterSettings(JsonMode.SHELL, false)
+    JsonWriter jsonWriter = new JsonWriter(new StringWriter(),
+        JsonWriterSettings.builder().outputMode(JsonMode.SHELL).indent(true).build());
+    new DocumentCodec().encode(jsonWriter, document,
+        EncoderContext.builder().isEncodingCollectibleDocument(true).build());
+    System.out.println(jsonWriter.getWriter());
+    System.out.flush();
+  }
+}
+```
+
+Quiz:
+
+How would you create a document using the Java driver with this JSON structure:
+
+```json
+{
+   "_id" : "user1",
+   "interests" : [ "basketball", "drumming"]
+}
+```
+
+Choose the best answer:
+
+```java
+new Document("_id", "user1").append("interests", Arrays.asList("basketball", "drumming"));
+```
+
+
+
+#### Java Driver: Insert
+
+练习
+
+```java
+public class InsertTest {
+
+  public static void main(String[] args) {
+    // 连接本机 mongodb
+    MongoClient client = new MongoClient();
+    // 获取 course 数据库
+    MongoDatabase clientDatabase = client.getDatabase("course");
+    // 获取 insertTest 实例
+    MongoCollection<Document> mongoCollection = clientDatabase.getCollection("insertTest");
+    // 删除 insertTest 集合
+    mongoCollection.drop();
+    // 创建一份文档
+    Document smith = new Document("name", "Smith")
+        .append("age", 30)
+        .append("profession", "programer");
+    // 使用 insertOne 插入集合中
+    // mongoCollection.insertOne(smith);
+
+    // 创建另外一份文档
+    Document jones = new Document("name", "Jones")
+        .append("age", 25)
+        .append("profession", "hacker");
+
+    // 使用 insertMany 完成批量插入
+    mongoCollection.insertMany(Arrays.asList(smith, jones));
+
+    Helpers.printJson(smith);
+    Helpers.printJson(jones);
+  }
+
+}
+```
+
+Quiz:
+
+Do you expect the second insert below to succeed?
+
+```java
+MongoClient client = new MongoClient();
+MongoDatabase database = client.getDatabase("school");
+MongoCollection<Document> people = database.getCollection("people");
+
+Document doc = new Document("name", "Andrew Erlichson").append("company", "10gen");
+
+ people.insertOne(doc);      // first insert
+ doc.remove("_id");             // remove the _id key
+ people.insertOne(doc);      // second insert
+```
+
+
+
+Yes, because the remove call will remove the `_id` field added by the driver in the first insert. 是的，因为remove调用将删除驱动程序在第一个插入中添加的_id字段。
+
+
+
+#### Java Driver: Find, FindOne,Count
+
+练习
+
+```java
+public class FindTest {
+
+  public static void main(String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase mongoDatabase = client.getDatabase("course");
+    MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("findTest");
+    mongoCollection.drop();
+
+    // insert 10 Documents
+    for (int i = 0; i < 10; i++) {
+      mongoCollection.insertOne(new Document("x", i));
+    }
+
+    System.out.println("Find One:");
+    Document first = mongoCollection.find().first();
+    Helpers.printJson(first);
+
+    System.out.println("Find All with into:");
+    ArrayList<Document> documents = mongoCollection.find().into(new ArrayList<Document>());
+    for (Document cur : documents) {
+      Helpers.printJson(cur);
+    }
+
+    System.out.println("Find All with iteration:");
+    MongoCursor<Document> cursor = mongoCollection.find().iterator();
+    try {
+      while (cursor.hasNext()) {
+        Document document = cursor.next();
+        Helpers.printJson(document);
+      }
+    } finally {
+      cursor.close();
+    }
+
+    System.out.println("count:");
+    long countDocuments = mongoCollection.countDocuments();
+    System.out.println(countDocuments);
+  }
+}
+```
+
+Quiz:
+
+In the following code snippet:
+
+```java
+MongoClient client = new MongoClient();
+MongoDatabase database = client.getDatabase("school");
+MongoCollection<Document> people = database.getCollection("people");
+Document doc;
+// xxxx
+System.out.println(doc);
+```
+
+Please enter the simplest one line of Java code that would be needed in place of // xxxx to make it print one document from the people collection.
+
+Enter answer here:
+
+```java
+doc = people.find().first();
+```
+
+
+
+#### Java Driver: Querying with a filter
+
+> 修改日志等级，显示更详细的信息 
+>
+> https://docs.mongodb.com/manual/reference/parameters/#param.logLevel
+
+```shell
+db.adminCommand( { setParameter: 1, logLevel: 2 } )
+
+#查看状态：级别和时间
+PRIMARY> db.getProfilingStatus()
+{ "was" : 1, "slowms" : 200 }
+#查看级别
+PRIMARY> db.getProfilingLevel()
+1
+#设置级别
+PRIMARY> db.setProfilingLevel(2)
+{ "was" : 1, "slowms" : 100, "ok" : 1 }
+#设置级别和时间
+PRIMARY> db.setProfilingLevel(1,200)
+{ "was" : 2, "slowms" : 100, "ok" : 1 }
+
+mongod -f mongodb.conf
+```
+
+练习使用 Java 驱动程序应用查询过滤器的方式
+
+```java
+public class FindWithFilterTest {
+
+  public static void main(String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase course = client.getDatabase("course");
+    MongoCollection<Document> collection = course.getCollection("findWithFilterTest");
+    collection.drop();
+
+    // insert 10 documents with two random integers
+    for (int i = 0; i < 10; i++) {
+      collection.insertOne(new Document().append("x", new Random().nextInt(2))
+          .append("y", new Random().nextInt(100)));
+    }
+
+//    Bson fileter = new Document().append("x", 0).append("y", new Document("$gt", 10));
+    Bson filter = and(eq("x", 0), gt("y", 10), lt("y", 90));
+
+    ArrayList<Document> documents = collection.find(filter).into(new ArrayList<Document>());
+    for (Document cur : documents) {
+      Helpers.printJson(cur);
+    }
+
+    long count = collection.countDocuments(filter);
+  }
+}
+```
+
+Quiz:
+
+Given a collection named "scores" of documents with two fields -- type and score -- what is the correct line of code to find all documents where type is "quiz" and score is greater than 20 and less than 90. Select all that apply.
+
+```java
+scores.find(new Document("type", "quiz").append("score", new Document("$gt", 20).append("$lt", 90)));
+
+scores.find(Filters.and(Filters.eq("type", "quiz"), Filters.gt("score", 20), Filters.lt("score", 90)))
+```
+
+
+
+#### Java Driver: Querying with a Projection
+
+如何使用字段来投影，如何使用投影构建器中静态方法
+
+```java
+public class FindWithFilterTest {
+
+  public static void main(String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase course = client.getDatabase("course");
+    MongoCollection<Document> collection = course.getCollection("findWithFilterTest");
+    collection.drop();
+
+    // insert 10 documents with two random integers
+    for (int i = 0; i < 10; i++) {
+      collection.insertOne(new Document().append("x", new Random().nextInt(2))
+          .append("y", new Random().nextInt(100)));
+    }
+
+//    Bson fileter = new Document().append("x", 0).append("y", new Document("$gt", 10));
+    Bson filter = and(eq("x", 0), gt("y", 10), lt("y", 90));
+
+    // 排除字段 x 的输出
+//    Bson projection = new Document("x", 0);
+
+    // 排序字段 x 和 _id 的输出
+//    Bson projection = new Document("x", 0).append("_id", 0);
+
+    // 允许字段 x 和 y 的输出，但是默认为输出 _id，如若不要请声明去除
+//    Bson projection = new Document("x", 1).append("y", 1);
+
+    // 使用 Projections.exclude 排除字段
+//    Bson projection = Projections.exclude("x", "_id");
+
+    // 使用 Projections.include 包含字段
+//    Bson projection = Projections.include("y");
+
+    // 使用 Projections.fields组合来同时包含字段和排除字段操作
+//    Bson projection = Projections.fields(Projections.exclude("_id"), Projections.include("y"));
+
+    // 使用 Projections.fields组合来同时包含字段和使用 Projections.excludeId() 排除 _id 字段
+//    Bson projection = Projections.fields(Projections.include("x"), Projections.excludeId());
+
+    // 通过导入静态方法，简化代码
+    Bson projection = fields(include("x"), excludeId());
+
+
+    ArrayList<Document> documents = collection.find(filter).projection(projection).into(new ArrayList<Document>());
+    for (Document cur : documents) {
+      Helpers.printJson(cur);
+    }
+
+    long count = collection.countDocuments(filter);
+  }
+}
+```
+
+
+
+Quiz:
+
+Given a variable named "students" of type MongoCollection<Document>, which of the following lines of code could be used to find all documents in the collection, retrieving only the "phoneNumber" field.
+
+```java
+students.find().projection(Projections.fields(Projections.include("phoneNumber"), Projections.excludeId());
+                           
+students.find().projection(new Document("phoneNumber", 1).append("_id", 0));
+```
+
+
+
+#### Java Driver: Querying with Sort, Skip and Limit
+
+排序、跳过、限制的练习
+
+```java
+public class FindWithSortSkipLimitTest {
+
+  public static void main(String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase database = client.getDatabase("course");
+    MongoCollection<Document> collection = database
+        .getCollection("findWithSortSkipLimitTest");
+    collection.drop();
+
+    // insert 100 documents with two random integers
+    for (int i = 0; i < 10; i++) {
+      for (int j = 0; j < 10; j++) {
+        collection.insertOne(new Document().append("i", i).append("j", j));
+      }
+    }
+
+    Bson projection = Projections.fields(Projections.include("i", "j"), Projections.excludeId());
+    // 【排序】
+    // 按照 i 字段升序排列
+    // Bson sort = new Document("i", 1);
+
+    // 按照 i 字段、j 字段升序排列
+    // Bson sort = new Document("i", 1).append("j", 1);
+    // 按照 i 字段升序、j 字段降序排列
+    // Bson sort = new Document("i", 1).append("j", -1);
+
+    // 通过静态方法 Sorts.ascending 指定 i 升序
+    // Bson sort = Sorts.ascending("i");
+
+    // 通过静态方法 Sorts.ascending 指定 i 升序，并且通过 Sorts.descending 指定 j 降序
+    // Bson sort = Sorts.orderBy(Sorts.ascending("i"), Sorts.descending("j"));
+
+    // 通过 Sorts.descending 指定 i，j 都降序排列，一种复合排序
+    Bson sort = Sorts.descending("i", "j");
+
+    List<Document> all = collection.find()
+        .projection(projection)
+        .sort(sort)
+        .skip(20) // 【跳过】跳过前20条
+        .limit(50) // 【限制】通过 limit 限制前50条
+        .into(new ArrayList<>());
+
+    for (Document cur : all) {
+      Helpers.printJson(cur, false);
+    }
+  }
+
+}
+```
+
+Quiz:
+
+Supposed you had the following documents in a collection named things.
+
+```json
+{ "_id" : 0, "value" : 10 }
+{ "_id" : 1, "value" : 5 }
+{ "_id" : 2, "value" : 7 }
+{ "_id" : 3, "value" : 20 }
+```
+
+If you performed the following query in the Java driver:
+
+```java
+collection.find().sort(new Document("value", -1)).skip(2).limit(1)
+```
+
+which document would be returned?
+
+The document with _id=2
+
+
+
+#### Java Driver:Update and Replace
+
+如何进行替换、更新、批量更新，当更新不存在时变为增加
+
+```java
+public class UpdateTest {
+
+  public static void main(String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase course = client.getDatabase("course");
+    MongoCollection<Document> collection = course.getCollection("updateTest");
+    collection.drop();
+
+    // insert 8 documents, with both _id and x set to the value of the loop variable
+    // and y set to true
+    for (int i = 0; i < 8; i++) {
+      collection.insertOne(new Document().append("_id", i).append("x", i).append("y", true));
+    }
+
+    // 使用 replaceOne 方式进行【替换】更新操作：更新 x 为5的记录，并把 x 改为20，且增加 updated 为 true 的字段，删除 y 的字段
+    // collection.replaceOne(Filters.eq("x", 5), new Document("x", 20).append("updated", true));
+
+    // 使用 updateOne 方式进行【更新】操作：更新 x为5的记录，并把 x 改为20，且增加 updated 为 true的字段，忽略其他字段
+    // collection.updateOne(Filters.eq("x", 5), new Document("$set", new Document("x", 20).append("updated", true)));
+
+    // 使用 Updates.set 构造器进行更新一个字段
+    // collection.updateOne(Filters.eq("x", 5),Updates.set("x", 20));
+
+    // 使用 Updates.set 构造器进行更新多个字段
+    // collection.updateOne(Filters.eq("x", 5), Updates.combine(Updates.set("x", 20), Updates.set("updated", true)));
+
+    // 使用 Updates.set 和 upsert(true) 使更新具有新增功能（当记录不存在时）
+    // collection.updateOne(Filters.eq("_id", 9), Updates.combine(Updates.set("x", 20), Updates.set("updated", true)), new UpdateOptions().upsert(true));
+
+    // 使用 updateMany 方式进行【批量更新】操作，更新大于等于5的记录，所有的 x 值增量加1
+    collection.updateMany(Filters.gte("x", 5), Updates.inc("x", 1));
+
+    for (Document cur: collection.find().into(new ArrayList<>())) {
+      Helpers.printJson(cur);
+    }
+  }
+}
+```
+
+Quiz
+
+In the following code fragment, what is the Java expression in place of xxxx that will set the field "examiner" to the value "Jones" for the document with _id of 1. Please use the $set operator.
+
+```java
+# update using $set
+scores.updateOne(new Document("_id", 1), xxxx);
+```
+
+Enter answer here:
+
+```java
+new Document("$set", new Document("examiner", "Jones"))
+```
+
+
+
+#### Java Driver:Delete
+
+使用 deleteOne 删除 或 deleteMany 批量删除
+
+```java
+public class DeleteTest {
+
+  public static void main(String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase database = client.getDatabase("course");
+    MongoCollection<Document> collection = database.getCollection("deleteTest");
+    collection.drop();
+
+    // insert 8 documents, with _id set to the value of the loop variable
+    for (int i = 0; i < 8; i++) {
+      collection.insertOne(new Document("_id", i));
+    }
+
+    // 使用 deleteMany 方法完成批量删除 _id的值大于4的记录
+    // collection.deleteMany(Filters.gt("_id", 4));
+
+    // 使用 deleteOne 方法完成删除 _id 的值为4的记录
+    collection.deleteOne(Filters.eq("_id", 4));
+
+    for (Document cur : collection.find().into(new ArrayList<>())) {
+      Helpers.printJson(cur);
+    }
+  }
+}
+```
+
+Quiz
+
+Given a collection with the following documents, how many will be affected by the following deletion statement?
+
+```json
+{ _id: 0, x: 1 }
+{ _id: 1, x: 1 }
+{ _id: 2, x: 1 }
+{ _id: 3, x: 2 }
+{ _id: 4, x: 2 }
+```
+
+```java
+collection.deleteOne(Filters.eq("x", 1))
+```
+
+Choose the best answer: 1
+
+> 注意，虽然字段x为1的记录有3条，但是 delteOne 只会删除1条
+
+
+
+#### All Together Now: MongoDB, Spark and Freemarker
+
+使用 Spark Web 请求框架，结合 MongoDB数据查询填充到 Freemarker 模板中
+
+```java
+public class HelloWorldMongoDBSparkFreemarkerStyle {
+
+  public static void main(String[] args) {
+    final Configuration configuration = new Configuration();
+    configuration.setClassForTemplateLoading(HelloWorldMongoDBSparkFreemarkerStyle.class, "/freemarker");
+    MongoClient mongoClient = new MongoClient();
+    MongoDatabase database = mongoClient.getDatabase("course");
+    MongoCollection<Document> collection = database.getCollection("hello");
+    collection.drop();
+
+    collection.insertOne(new Document("name", "MongoDB"));
+
+    Spark.get("/", new Route() {
+      @Override
+      public Object handle(Request request, Response response) throws Exception {
+        StringWriter writer = new StringWriter();
+        try {
+          Template helloTemplate = configuration.getTemplate("hello.ftl");
+          helloTemplate.process(collection.find().first(), writer);
+        } catch (Exception e) {
+          Spark.halt(500);
+          e.printStackTrace();
+        }
+        return writer;
+      }
+    });
+  }
+}
+```
+
+
+
+#### Blog, Internals
+
+博客的内幕：
+
+- View -> ftl - 由freemarker处理
+- Controller/Model - java/spark
+
+
+
+#### Blog, Session Management
+
+会话管理及用户的方式
+
+![mongoDB](/img/mongoDB/Java_Developers/session_management.png)
+
+
+
+#### Blog, User Interface
+
+包含三个页面
+
+- Author Signup
+- Author Login
+- Author Logout
+
+![mongoDB](/img/mongoDB/Java_Developers/blog_ui.png)
+
+
+
+#### Homework 2.1
+
+```
+THE ANSWER IS:2805
+```
+
+
+
+#### Homework 2.2
+
+```shell
+# 导入数据
+mongoimport --drop -d students -c grades grades.json
+
+Now it's your turn to analyze the data set. Find all exam scores greater than or equal to 65, and sort those scores from lowest to highest.
+
+What is the student_id of the lowest exam score above 65?
+
+db.grades.find({"score":{$gte:65}}).sort({"score": 1})
+22
+```
+
+
+
+#### Homework 2.3
+
+先写一段 java 程序删除每个学生最低成绩的家庭作业记录
+
+```java
+// 这是我自己写的
+public class StudentScore {
+
+  public static void main(String[] args) {
+    MongoClient mongoClient = new MongoClient();
+    MongoDatabase database = mongoClient.getDatabase("students");
+    MongoCollection<Document> collection = database.getCollection("grades");
+
+    ArrayList<Document> documents = collection
+        .aggregate(asList(new Document("$match", new Document("type", "homework"))
+        , new Document("$group", new Document("_id", "$student_id").append("score", new Document("$min", "$score")))
+            , new Document("$sort", new Document().append("_id", 1))
+        ))
+        .into(new ArrayList<>());
+
+    for (Document cur : documents) {
+      cur.put("student_id",cur.get("_id"));
+      cur.remove("_id");
+      collection.deleteOne(cur);
+    }
+
+    FindIterable<Document> documents1 = collection.find(Filters.eq("type", "homework"))
+        .sort(Sorts.ascending("student_id"));
+    for (Document cur : documents1) {
+      Helpers.printJson(cur);
+    }
+  }
+
+}
+
+/*
+ * Copyright 2015 MongoDB, Inc. 这是 mongoDB 官方提供的
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package course.homework.week2;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+import java.io.IOException;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Sorts.ascending;
+
+public class RemoveLowest {
+    public static void main(final String[] args) {
+        MongoClient client = new MongoClient();
+        MongoDatabase numbersDB = client.getDatabase("students");
+        MongoCollection<Document> grades = numbersDB.getCollection("grades");
+
+        MongoCursor<Document> cursor = grades.find(eq("type", "homework"))
+                                .sort(ascending("student_id", "score")).iterator();
+
+        Object studentId = -1;
+        try {
+            while (cursor.hasNext()) {
+                Document entry = cursor.next();
+                if (!entry.get("student_id").equals(studentId)) {
+                    System.out.println("Removing: " + entry);
+                    Object id = entry.get("_id");
+                    grades.deleteOne(eq("_id", id));
+
+                }
+                studentId = entry.get("student_id");
+           }
+        } finally {
+            cursor.close();
+        }
+    }
+}
+```
+
+再运行 shell 脚本来计算出答案
+
+```shell
+# 导入数据
+mongoimport --drop -d students -c grades grades.json
+
+# 进入 mongo shell
+mongo
+
+# 选择 students 数据库
+use students
+
+# 查看 grades 集合的数量
+db.grades.count()
+
+# The result should be 600. Now let us find the student who holds the 101st best grade across all grades:
+db.grades.find().sort( { 'score' : -1 } ).skip( 100 ).limit(1)
+
+# The correct result will be:
+# { "_id" : ObjectId("50906d7fa3c412bb040eb709"), "student_id" : 100, "type" : "homework", "score" : 88.50425479139126 }
+
+# Now let us sort the students by student_id , and score, while also displaying the type to then see what the top five docs are:
+# db.grades.find( { }, { 'student_id' : 1, 'type' : 1, 'score' : 1, '_id' : 0 } ).sort( { 'student_id' : 1, 'score' : 1 } ).limit( 5 )
+{ "student_id" : 0, "type" : "quiz", "score" : 31.95004496742112 }
+{ "student_id" : 0, "type" : "exam", "score" : 54.6535436362647 }
+{ "student_id" : 0, "type" : "homework", "score" : 63.98402553675503 }
+{ "student_id" : 1, "type" : "homework", "score" : 44.31667452616328 }
+{ "student_id" : 1, "type" : "exam", "score" : 74.20010837299897 }
+
+# To verify that you have completed this task correctly, provide the identity of the student with the highest average in the class with following query that uses the aggregation framework. The answer will appear in the _id field of the resulting document.
+db.grades.aggregate( { '$group' : { '_id' : '$student_id', 'average' : { $avg : '$score' } } }, { '$sort' : { 'average' : -1 } }, { '$limit' : 1 } )
+{ "_id" : 54, "average" : 96.19488173037341 }
+```
+
+
+
+#### Homework 2.4(MongoProc)
+
+涉及到修改 `UserDAO.java`
+
+```java
+// validates that username is unique and insert into db
+public boolean addUser(String username, String password, String email) {
+
+    String passwordHash = makePasswordHash(password, Integer.toString(random.nextInt()));
+
+    Document user = new Document();
+
+    user.append("_id", username).append("password", passwordHash);
+
+    if (email != null && !email.equals("")) {
+        // the provided email address
+        user.append("email", email);
+    }
+
+    try {
+        usersCollection.insertOne(user);
+        return true;
+    } catch (MongoWriteException e) {
+        if (e.getError().getCategory().equals(ErrorCategory.DUPLICATE_KEY)) {
+            System.out.println("Username already in use: " + username);
+            return false;
+        }
+        throw e;
+    }
+}
+
+
+public Document validateLogin(String username, String password) {
+    Document user;
+
+    user = usersCollection.find(eq("_id", username)).first();
+
+    if (user == null) {
+        System.out.println("User not in database");
+        return null;
+    }
+
+    String hashedAndSalted = user.get("password").toString();
+
+    String salt = hashedAndSalted.split(",")[1];
+
+    if (!hashedAndSalted.equals(makePasswordHash(password, salt))) {
+        System.out.println("Submitted password is not a match");
+        return null;
+    }
+
+    return user;
+}
+```
+
+
+
+#### Homework 2.5
+
+先导入“Creating Documents”中的video 库
+
+```shell
+$ mongorestore dump
+```
+
+
+
+Which of the choices below is the title of a movie from the year 2013 that is rated PG-13 and won no awards? Please query the `video.movieDetails` collection to find the answer.
+
+NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
+
+```shell
+show dbs
+use video
+show collections
+db.movieDetails.find({"rated": {"$eq": "PG-13"}, "year": 2013, "awards":{"$exists": true}, "awards.wins": {"$eq": 0}})
+
+# Answer
+# You can find the answer using the following query: 
+db.movieDetails.find({ "rated": "PG-13", "year": 2013, "awards.wins": 0})
+
+A Decade of Decadence, Pt. 2: Legacy of Dreams
+```
+
+
+
+#### Homework 2.6
+
+Using the video.movieDetails collection, how many movies list "Sweden" second in the the list of countries.
+
+NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
+
+```shell
+db.movieDetails.find({"countries.1":"Sweden"}).count()
+# answer
+6
+```
+
+
+
+#### Challenge Problem: Arrays with Nested Documents
+
+Quiz: Quiz: Challenge Problem: Arrays with Nested Documents
+
+*This problem is provided as a supplementary learning opportunity. It is more challenging that the ordinary homework. It is ungraded. We do not ask you submit an answer.*
+
+Suppose our movie details documents are structured so that rather than contain an awards field that looks like this:
+
+```
+"awards" : {
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 2 Oscars. Another 56 wins and 86 nominations."
+}
+```
+
+they are structured with an awards field as follows:
+
+```
+"awards" : {
+    "oscars" : [
+        {"award": "bestAnimatedFeature", "result": "won"},
+        {"award": "bestMusic", "result": "won"},
+        {"award": "bestPicture", "result": "nominated"},
+        {"award": "bestSoundEditing", "result": "nominated"},
+        {"award": "bestScreenplay", "result": "nominated"}
+    ],
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 2 Oscars. Another 56 wins and 86 nominations."
+}
+```
+
+What query would we use in the Mongo shell to return all movies in the video.movieDetails collection that either won or were nominated for a best picture Oscar? You may assume that an award will appear in the `oscars` array only if the movie won or was nominated. You will probably want to create a little sample data for yourself in order to work this problem.
+
+HINT: For this question we are looking for the simplest query that will work. This problem has a very straightforward solution, but you will need to extrapolate a little from some of the information presented in the "Reading Documents" lesson.
+
+Answer
+
+```
+db.movieDetails.find({"awards.oscars.award": "bestPicture"})
+```
+
+
+
+#### Challenge Problem: Updating Based on Multiple Criteria
+
+This problem is provided as a supplementary learning opportunity. It is more challenging that the ordinary homework. It is ungraded. We do not ask you submit an answer.
+
+Write an update command that will remove the "tomato.consensus" field for all documents matching the following criteria:
+
+The number of imdb votes is less than 10,000
+The year for the movie is between 2010 and 2013 inclusive
+The tomato.consensus field is null
+How many documents required an update to eliminate a "tomato.consensus" field?
+
+NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
+
+Answer
+
+You can arrive at the answer here in a couple of different ways, either of which provide some good learning opportunities. The key is realizing that you need to report on the number of documents that actually required an update to remove the `tomato.consensus` field. You can do this either by ensuring that you filter for only those documents that do not contain a `tomato.consensus` field or by recognizing that only 13 documents were actually modified by your update.
+
+Using the first approach, you can issue the following command.
+
+```
+db.movieDetails.updateMany({ year: {$gte: 2010, $lte: 2013},
+                             "imdb.votes": {$lt: 10000},
+                             $and: [{"tomato.consensus": {$exists: true} },
+                                    {"tomato.consensus": null} ] },
+                           { $unset: { "tomato.consensus": "" } });
+```
+
+In response, you will receive the following:
+
+```
+{ "acknowledged" : true, "matchedCount" : 13, "modifiedCount" : 13 }
+```
+
+Using the second approach, you can issue a simpler command, but one that is not precise about what needs to be updated.
+
+```
+db.movieDetails.updateMany({ year: {$gte: 2010, $lte: 2013},
+                             "imdb.votes": {$lt: 10000},
+                             "tomato.consensus": null },
+                           { $unset: { "tomato.consensus": "" } });
+```
+
+In response, you will receive the following:
+
+```
+{ "acknowledged" : true, "matchedCount" : 204, "modifiedCount" : 13 }
+```
+
+Note that while the query portion of the update matches 204 documents, only 13 documents actually required an update.
+
+
+
+### Week 3: Schema Design
+
+#### Introduction to Week 3
+
+模式设计，MongoDB 有动态模式，每个文档都可以有自己的架构。这使得决定什么架构变得有点困难。在大多数应用程序中，每个文档都具有相同的模式，但他们仍然有选择。你可以将数据嵌入文档中，也可以将其放入文档中进入自己的收藏，而这些决定将对绩效产生影响，易于编程。因此，通过一些列用例，我们将带给你通过 MongoDB 架构设计。
+
+
+
+#### MongoDB Schema Design
+
+在 Mongo中证明它更重要，以有利于应用程序的方式保存数据、使用数据。
+
+因此，你需要考虑应用程序数据模式。
+
+考虑一起使用哪些数据，哪些数据块主要用于只读，哪些数据是一直写的。
+
+然后我们将在其中组织我们的数据，MongoDB特别适合应用数据访问模式。
+
+这与关系型数据库有点不同，相反，你试图保持数据的方式与应用程序无关。
+
+首先，MongoDB 支持丰富的文档类型。
+
+在 MongoDB你可以存储项目数组或值，某个键可以是整个其他文档。这将允许我们预先加入用于快速访问的数据。
+
+你需要考虑想要与其他数据一起使用的数据，如果有可能，你可能想要嵌入它直接在文档中。
+
+在 MongoDB 没有外键约束，但它会变得不像那么重要，因为嵌入而思考，嵌入将使重要性降低一点，我们将考虑原子操作，我们不支持交易。所有我们将考虑如何组织我们的数据。如果需要原子操作，请支持原子操作。
+
+没有声明的架构在 MongoDB 中，但是你的申请将有可能有一个架构，在一个集合中大多数文档具有类似的架构，有可能文档之间有些细微的差别。
+
+Quiz
+
+What's the single most important factor in designing your application schema within MongoDB?（在MongoDB中设计应用程序模式最重要的因素是什么?）
+
+Choose the best answer:
+
+Matching the data access patterns of your application.（匹配应用程序的数据访问模式。与这些数据访问模式一致，因为这是你将获得最佳表现的方式，这就是我们从中获得最大便利的方式在你的应用程序中编程）
+
+
+
+#### Relational Normalization
+
+MongoDB中的一个想法就是使用你的想法，数据库到你尝试编写的应用程序以及你想要解决的问题。所以我们不会担心避免这种趋势对某些特定的访问模式。
+
+我不想重新设计系统，每当我们改变某事时都会完成。
+
+MongoDB 非常灵活，因为我们可以添加文档的键和属性，无需更改所有现有文件。
+
+最后一件事是释放数据库这些修改异常，虽然你可能认为嵌入数据，它会导致这种情况，但事实并非如此。主要是，我们将避免在文档中嵌入数据。在 MongoDB 中会议某种方式导致创造了这些异常。所有我们要小心，不要吸收在很多地方。
+
+偶尔，出于性能原因，我们会做出决定复制文档中的一些数据，但它不会是默认值。默认是我们将避免它，所以我们没有数据可以存在的这类异常改变不一致。
+
+在某些应用程序中，你可能希望允许它没关系，或者你可能希望和在应用程序中更新它们。很多时候我们会避免它
+
+
+
+#### Mongo Design for Blog
+
+Quiz
+
+Which data access pattern is not well supported by the blog schema?
+
+Choose the best answer:
+
+Providing a table of contents by tag（要做到这一点，你可能不得不适用聚合框架做某种类型的分组）
+
+
+
+#### Alternative Schema for Blog
+
+注意嵌套文档只是在16MB 字节以内
+
+![mongoDB](/img/mongoDB/Java_Developers/schema_for_blog.png)
+
+
+
+#### Living Without Constraints
+
+What does Living Without Constraints refer to?
+Keeping your data consistent even though MongoDB lacks foreign key constraints
+
+
+
+#### Living Without Transacitons
+
+MongoDB缺乏事务支持。从关系型数据库来看，很多人都知道。
+
+事务提供原子性、一致性和隔离性、耐用性（ACID）
+
+MongoDB存在原子操作
+
+Which of the following operations operate atomically within a single document? Check all that apply.
+
+Check all that apply:
+
+- Update
+- findAndModify
+- $addToSet (within an update)
+
+- $push within an update
+
+
+
+#### One to One Relations
+
+What's a good reason you might want to keep two documents that are related to each other one-to-one in separate collections? Check all that apply.
+
+Check all that apply:
+
+To reduce the working set size of your application.
+Because the combined size of the documents would be larger than 16MB
+
+分开以减少工作集的大小，因为你只是想访问部分的数据，不想带来这两个部分数据到内存
+
+或者你可以担心合并后的文档大于16MB 字节
+
+一对一的情况下，建议一个集合 collection
+
+
+
+#### One to Many Relations
+
+一对多的情况下，建议多个集合 collection
+
+When is it recommended to represent a one to many relationship in multiple collections?
+Choose the best answer:
+
+Whenever the many is large
+
+
+
+#### Many to Many Relations
+
+Books: Authors（一本书可能有多个作者，每个作者都可以不止有一本书）
+
+Students: Teachers（一个学生可能有多个老师，每个老师都可以由多个学生）
+
+
+
+#### Multikeys
+
+引用和嵌入的原因之一在 MongoDB 中工作得很好就是存在一个功能称为多重索引（Multikey Indexes）。
+
+```
+设计方案：
+Students
+{"_id": 0, "name": "Andreo", "teachers": [0,1,5,10]}
+
+Teachers
+{"_id": 0, "name": "Tony"}
+
+思考两个问题：
+1.我怎样才能找到所有老师，特定学生是什么？
+2.我怎样才能知道所有学生，谁有一位特定的老师？
+db.students.find()
+
+# 给 students collection 加入老师字段的索引
+db.students.ensureIndex({"teachers":1})
+
+# 找到所有的学生，它们中有 id为0的老师和 id 为1的老师
+db.students.find({"teachers": {"$all":[0,1]}})
+
+# 在查询的末尾添加 explain,它会告诉我们它在查询时所作的事情(是否用在索引等)
+db.students.find({"teachers":{"$all":[0,1]}}).explain()
+```
+
+
+
+#### Benefits of Embedding
+
+嵌入来自两个不同集合的数据的主要好处，为了表现，将它们进行组合，提高阅读表现。并在同一个数据库中。
+
+
+
+#### Trees
+
+representing trees
+
+设计方案中一个经典问题是如何表示数据库中的树
+
+```
+Products
+{"category":7, "product_name": "xxxx"}
+
+Category
+{"_id": 7, "category_name": "doors", "children":[3,4,5,6]}
+```
+
+Given the following typical document for a e-commerce category hierarchy collection called *categories*
+
+```json
+{
+  _id: 34,
+  name: "Snorkeling",
+  parent_id: 12,
+  ancestors: [12, 35, 90]
+}
+```
+
+Which query will find all descendants of the snorkeling category?
+
+db.categories.find( { ancestors: 34 } )
+
+
+
+####  When to denormalize
+
+正常和非规范化
+
+将数据标准化的原因之一是，在关系型数据库中个，要避免重复带来的修改异常数据。
+
+
+
+#### What is an ODM?
+
+ODM 带给你的是它位于应用程序与代码驱动程序之间，它有助于保护你免受驱动程序更改，API 发生变化。提供一个和好的 Java API 编写你的应用程序
+
+
+
+#### Field mappings, indexes and constraints in Morphia
+
+使用 Morphia 映射你的实体
+
+```java
+// @Entity 默认情况下，使用类名，可通过 value 指定 collection 名称
+// noClassnameStored 默认值为 false，设置为 true 时关闭将类名称作为一个字段
+@Entity(value = "users", noClassnameStored = true)
+@Indexes({
+    // 定义一个名为popular的索引，且是复合索引，在用户名上创建一个升序索引、追随者的降序索引，所以它会更受欢迎的用户按字母顺序排列用户
+    @Index(value = "username, -followers", name = "popular"),
+    // TTL索引，只能针对日期类型，意味着在这个数字之后，一个运行的线程将检查何时查看最后更新，最后一次活跃，如果超过这个秒数，MongoDB会从集合中删除这条记录，这是一种自动删除过期记录的好方法，无需管理它，使用它可能不是最好的主意，在用户集合中，因为你可能希望将它们标记为非活动状态，例如，禁用他的账户，而不是删除他的账户。如果你存储日志或任何类型的历史记录，一段时候后你就放弃了关心，你可以将它设置为三年后过期，它们就会神奇地从集合中自动消失
+    @Index(value = "lastActive", name = "idle", expireAfterSeconds = 1000000000)
+})
+public class GithubUser {
+    // @Id 定义 _id 字段，默认情况下 MongoDB和 Java 驱动程序使用对象 ID
+    @Id
+    public String userName;
+    // 没有注释，默认情况下保留该字段 full_name
+    public String fullName;
+    // @Property，将重命名 document 属性
+    @Property("since")
+    public Date memberSince;
+    public Date lastActive;
+    // @Reference(lazy = true) 懒加载引用对象数组
+    @Reference(lazy = true)
+    public List<Repositiory> repositories = new ArrayList<>();
+    public int followers = 0;
+    public int following = 0;
+}
+
+@Entity("orgs")
+public classs Organization {
+    @Id
+    public String name;
+    // @Indexed 在属性字段上定义索引，当没有传递名字时自动使用属性名 
+    // unique  唯一索引
+    // dropDups 删除重复项索引
+	// background 后台运行
+    // sparse 是创建时的设置，字段不再每个文档上，你可以将其定义为稀疏，并且它具有一定的帮助功能，并在多少秒后过期，默认值为-1，这意味着不创建 TTL，这是可以直接索引属性的另一种方式
+    @Indexed(value = IndexDirection.ASC, name = "", unique = false, dropDups = false, expireAfterSeconds = -1, background = false, sparse = false)
+    public Date created;
+    // @Version 版本的注释，必须指定在 long类型
+    @Version("v")
+    public long version;
+}
+
+@Entity("repos")
+public class Repository {
+    @Id
+    public String name;
+    @Reference // 非懒惰对象的引用，每次自动获取
+    public Organization organization;
+    @Reference
+    public GithubUser owner;
+    public Settings settings = new Settings();
+}
+```
+
+
+
+#### CRUD Operations in Morphia
+
+```java
+public class Demos extends BaseTest {
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+    private GithubUser evanchooly;
+    private Date date;
+    
+    public Demos() {
+        date = sdf.parse("6-15-1987");
+    }
+    
+    @Test
+    public void basicUser() {
+        evanchooly = new GithubUser("evanchooly");
+        evanchooly.fullName = "Justin Lee";
+        evanchooly.memberSince = date;
+        evanchooly.following = 1000;
+        ds.save(evanchooly);
+    }
+    
+    @Test(dependsonMethods = {"basicUser"})
+    public void repositories() throws ParseException {
+        Organization org = new Organization("mongodb");
+        ds.save(org);
+        
+        Repository morphia1 = new Repository(org, "morphia");
+        Repository morphia2 = new Repository(evanchooly, "morphia");
+        
+        ds.save(morphia1);
+        ds.save(morphia2);
+        
+        evanchooly.repositories.add(morphia1);
+        evanchooly.repositories.add(morphia2);
+        ds.save(evanchooly);
+    }
+    
+    @Test(dependsOnMethods = {"repositories"}) 
+    public void query() {
+        Query<Repository> query = ds.createQuery(Repository.class);
+        Repository repository = query.get();
+        List<Repository> repositories = query.asList();
+        Iterable<Repository> fetch = query.fetch();
+        ((MorphiaIterator) fetch).close();
+        
+        Iterator<Repository> iterator = fetch.iterator();
+        while(iterator.hasNext()) {
+            iterator.next();
+        }
+        
+        iterator = fetch.iterator();
+        while(iterator.hasNext()){
+            iterator.next();
+        }
+        
+        query.field("owner").equal(evanchooly).get();
+        GithubUser memberSince = ds.createQuery(GithubUser.class)
+            .field("memberSince").equal(date).get();
+        System.out.println("memberSince = " + memberSince);
+        GithubUser since = ds.createQuery(GithubUser.class)
+            .field("since").equal(date).get();
+        System.out.prinln("since = " + since);
+    }
+    
+    @Test(dependsOnMethods = {"repositories"})
+    pubic void updates() {
+        evanchooly.followers = 12;
+        evanchooly.following = 678;
+        ds.save(evanchooly);
+    }
+    
+    @Test(dependsOnMethods = {"repositories"})
+    public void massUpdates() {
+        UpdateOperations<GithubUser> update =
+            ds.createUpdateOperations(GithubUser.class)
+            .inc("followers")
+            .set("following", 42);
+        Query<GithubUser> query = ds.createQuery(GithubUser.class)
+            .field("followers").equal(0);
+        ds.update(query, update);
+    }
+    
+    @Test(dependsOnMethods = {"repositories"},
+         expectedExceptions = {ConcurrentModificationException.class})
+    public void versioned() {
+        Organization organization = ds.createQuery(Organization.class).get();
+        Organization organization2 = ds.createQuery(Organization.class).get();
+        Assert.assertEquals(organization.version, 1L);
+        ds.save(organization);
+        
+        Assert.assertEquals(organization.version, 2L);
+        ds.save(organization);
+        
+        Assert.assertEquals(organization.version, 3L);
+        ds.save(organization2);
+    }
+}
+```
+
+
+
+#### Homework 3.1
+
+Download the students.json file from the Download Handout link and import it into your local Mongo instance with this command:
+
+```shell
+mongoimport --drop -d school -c students students.json
+```
+
+用代码实现删除数组中低分数的家庭作业
+
+```java
+// 我的实现，使用 $pull 操作符从现有数组中删除与指定条件匹配的值或值的所有实例
+public class StudentScore {
+
+  public static void main(String[] args) {
+    MongoClient mongoClient = new MongoClient();
+    MongoDatabase database = mongoClient.getDatabase("school");
+    MongoCollection<Document> collection = database.getCollection("students");
+
+    ArrayList<Document> documents = collection.find().into(new ArrayList<>());
+
+    for (Document cur : documents) {
+      List<Document> scores = (List<Document>) cur.get("scores");
+      Document minHomework = null;
+      for (Document score: scores) {
+        if (score.getString("type").equals("homework")) {
+          if (minHomework == null) {
+            minHomework = score;
+            continue;
+          }
+          if (score.getDouble("score") < minHomework.getDouble("score")) {
+            collection.updateMany(new Document("_id", cur.get("_id")),new Document("$pull",new Document("scores", score)));
+          }
+        }
+      }
+      Helpers.printJson(cur);
+    }
+  }
+}
+
+// 官方的实现
+/**
+ * Drop the lowest score for students in a data set.
+ */
+public class RemoveLowest {
+  public static void main(final String[] args) {
+    MongoClient client = new MongoClient();
+    MongoDatabase schoolDB = client.getDatabase("school");
+    MongoCollection<Document> students = schoolDB.getCollection("students");
+
+    // Iterate through the students and repair them.
+    MongoCursor<Document> cursor = students.find().iterator();
+    try {
+      while (cursor.hasNext()) {
+        Document student = cursor.next();
+        List<Document> scores = (List<Document>) student.get("scores");
+        // Now find the lowest homework score.
+        Document minScoreObj = null;
+        double minScore = Double.MAX_VALUE;  // Minimum score value.
+
+        for (Document scoreDocument : scores) {
+          // The array contains documents with "type" and "score".
+          double score = scoreDocument.getDouble("score");
+          String type = scoreDocument.getString("type");
+
+          if (type.equals("homework") && score < minScore) {
+            minScore = score;
+            minScoreObj = scoreDocument; // this is the lowest score obj
+          }
+        }
+
+        // Remove the lowest score.
+        if (minScoreObj != null) {
+          scores.remove(minScoreObj);   // remove the lowest
+        }
+
+        // replace the scores array for the student
+        students.updateOne(eq("_id", student.get("_id")),
+                   new Document("$set", new Document("scores", scores)));
+      }
+    } finally {
+      cursor.close();
+    }
+
+    client.close();
+  }
+}
+```
+
+
+
+To verify that you have completed this task correctly, provide the identity (in the form of their _id) of the student with the highest average in the class with following query that uses the aggregation framework. The answer will appear in the _id field of the resulting document.
+
+```shell
+db.students.aggregate( [
+  { '$unwind': '$scores' },
+  {
+    '$group':
+    {
+      '_id': '$_id',
+      'average': { $avg: '$scores.score' }
+    }
+  },
+  { '$sort': { 'average' : -1 } },
+  { '$limit': 1 } ] )
+```
+
+Enter answer here: 13
+
+
+
+#### Homework 3.2(MongoProc)
+
+*Making your blog accept posts*
+
+In this homework you will be enhancing the blog project to insert entries into the posts collection. After this, the blog will work. It will allow you to add blog posts with a title, body and tags and have it be added to the posts collection properly.
+
+We have provided the code that creates users and allows you to login (the assignment from last week). To get started, please download blog.zip from the Download Handout link and unpack. You will be using these file for this homework and for homework 3.3.
+
+The areas where you need to add code are marked with "XXX". You need only touch the BlogPostDAO class. There are three locations for you to add code for this problem. Scan that file for XXX to see where to work.
+
+Here is an example of valid blog post:
+
+```
+> db.posts.find().pretty()
+{
+    "_id" : ObjectId("513d396da0ee6e58987bae74"),
+    "title" : "Martians to use MongoDB",
+    "author" : "andrew",
+    "body" : "Representatives from the planet Mars announced today that the planet would adopt MongoDB as a planetary standard. Head Martian Flipblip said that MongoDB was the perfect tool to store the diversity of life that exists on Mars.",
+    "permalink" : "martians_to_use_mongodb",
+    "tags" : [
+        "martians",
+        "seti",
+        "nosql",
+        "worlddomination"
+    ],
+    "comments" : [ ],
+    "date" : ISODate("2013-03-11T01:54:53.692Z")
+}
+```
+
+**Note:** You must add at least one post like the one above to the posts collection before running the blog.
+
+As a reminder, to run your blog you type:
+
+```
+mvn compile exec:java -Dexec.mainClass=course.BlogController
+```
+
+Or, use an IDE to run it.
+
+To play with the blog you can navigate to the following URLs:
+
+```
+http://localhost:8082/
+http://localhost:8082/signup
+http://localhost:8082/login
+http://localhost:8082/newpost
+```
+
+Ok, now it's time to validate that you got it all working using MongoProc. To do that, locate this problem in the homework browser pane in MongoProc. When you believe you have solved the problem correctly, test your solution using the "Test" button. When you see confirmation that you have completed the assignment successfully in the feedback window, you can *Turn in* your assignment.
+
+You will see a message below about your number of submissions at the bottom of this page, but you must submit this assignment using MongoProc.
+
+Tip: Be sure to go to settings in mongoProc, and point mongod1 to your mongod (probably localhost:27017), and web1 to your web url (probably localhost:8082)
+
+You have used 0 of 3 submissions.
+
+官方答案 Answer *BlogPostDAO.java:*
+
+**BlogPostDAO.java:**
+
+
+
+```
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Sorts.descending;
+
+import java.util.ArrayList;
+```
+
+
+
+```java
+// Return a single post corresponding to a permalink
+public Document findByPermalink(String permalink) {
+
+    // XXX HW 3.2,  Work Here
+
+    Document post = postsCollection.find(eq("permalink", permalink)).first();
+
+    return post;
+}
+```
+
+
+
+```java
+// Return a list of posts in descending order. Limit determines
+// how many posts are returned.
+// Requires importing com.mongodb.client.model.Sorts.descending
+public List<Document> findByDateDescending(int limit) {
+
+    // XXX HW 3.2,  Work Here
+    // Return a list of DBObjects, each one a post from the posts collection
+
+    List<Document> posts = postsCollection.find().sort(descending("date")).limit(limit).into(new ArrayList<Document>());
+
+    return posts;
+}
+```
+
+
+
+```java
+public String addPost(String title, String body, List tags, String username) {
+
+    System.out.println("inserting blog entry " + title + " " + body);
+
+    String permalink = title.replaceAll("\\s", "_"); // whitespace becomes _
+    permalink = permalink.replaceAll("\\W", ""); // get rid of non alphanumeric
+    permalink = permalink.toLowerCase();
+
+
+    // XXX HW 3.2, Work Here
+    // Remember that a valid post has the following keys:
+    // author, body, permalink, tags, comments, date
+    //
+    // A few hints:
+    // - Don't forget to create an empty list of comments
+    // - for the value of the date key, today's datetime is fine.
+    // - tags are already in list form that implements suitable interface.
+    // - we created the permalink for you above.
+
+    // Build the post object and insert it
+
+
+    // Build the post object.
+    Document post = new Document()
+                    .append("title", title)
+                    .append("author", username)
+                    .append("body", body)
+                    .append("permalink", permalink)
+                    .append("tags", tags)
+                    .append("comments", new ArrayList())
+                    .append("date", new java.util.Date());
+
+    postsCollection.insertOne(post);
+    System.out.println("Inserting blog post with permalink " + permalink);
+
+    return permalink;
+
+}
+```
+
+
+
+#### Homework 3.3(MongoProc)
+
+*Making your blog accept posts*
+
+In this homework you will add code to your blog so that it accepts comments. You will be using the same code as you downloaded for HW 3.2.
+
+Once again, the area where you need to work is marked with an XXX in the BlogPostsDAO class. There is only a single location you need to work to insert comments. You don't need to figure out how to retrieve comments for this homework because the code you did in 3.2 already pulls the entire blog post (unless you specifically projected to eliminate the comments) and we gave you the code in the template that pulls them out of the JSON document.
+
+This assignment has fairly little code, but it's a little more subtle than the previous assignment because you are going to be manipulating an array within the Mongo document. For the sake of clarity, here is a document out of the posts collection from a working project that also has comments.
+
+```
+{
+    "_id" : ObjectId("513d396da0ee6e58987bae74"),
+    "author" : "andrew",
+    "body" : "Representatives from the planet Mars announced today that the planet would adopt MongoDB as a planetary standard. Head Martian Flipblip said that MongoDB was the perfect tool to store the diversity of life that exists on Mars.",
+    "comments" : [
+        {
+            "author" : "Larry Ellison",
+            "body" : "While I am deeply disappointed that Mars won't be standardizing on a relational database, I understand their desire to adopt a more modern technology for the red planet.",
+            "email" : "larry@oracle.com"
+        },
+        {
+            "author" : "Salvatore Sanfilippo",
+            "body" : "This make no sense to me. Redis would have worked fine."
+        }
+    ],
+    "date" : ISODate("2013-03-11T01:54:53.692Z"),
+    "permalink" : "martians_to_use_mongodb",
+    "tags" : [
+        "martians",
+        "seti",
+        "nosql",
+        "worlddomination"
+    ],
+    "title" : "Martians to use MongoDB"
+}
+```
+
+
+
+Note that you add comments in this blog from the blog post detail page, which appears at
+
+```
+http://localhost:8082/post/post_slug
+```
+
+where post_slug is the permalink. For the sake of eliminating doubt, the permalink for the example blog post above is <http://localhost:8082/post/martians_to_use_mongodb>
+
+As a reminder, to run your blog you type:
+
+```
+mvn compile exec:java -Dexec.mainClass=course.BlogController
+```
+
+
+
+Or, use an IDE to run it.
+
+To play with the blog you can navigate to the following URLs
+
+```
+http://localhost:8082/
+http://localhost:8082/signup
+http://localhost:8082/login
+http://localhost:8082/newpost
+```
+
+
+
+When you believe you have solved the problem correctly, test your solution in MongoProc. When you see confirmation that your solution is correct, turn it in.
+
+You will see a message below about the number of times you have submitted a solution through MongoProc. You should not submit until testing in MongoProc confirms that your solution is correct.
+
+
+
+You have used 0 of 3 submissions.
+
+Answer
+
+**BlogPostDAO.java**
+
+```java
+// Append a comment to a blog post
+public void addPostComment(final String name, final String email, final String body,
+                           final String permalink) {
+
+    // XXX HW 3.3, Work Here
+    // Hints:
+    // - email is optional and may come in NULL. Check for that.
+    // - best solution uses an update command to the database and a suitable
+    //   operator to append the comment on to any existing list of comments
+    Document comment = new Document("author", name).append("body", body);
+    if (email != null && !email.equals("")) {
+        comment.append("email", email);
+    }
+
+    postsCollection.updateOne(eq("permalink", permalink),
+                              new Document("$push", new Document("comments", comment)));
+}
+```
+
