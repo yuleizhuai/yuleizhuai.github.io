@@ -24,9 +24,7 @@ tags:
 
 #### Overview of Building an App with MongoDB
 
-![mongoDB](/img/mongoDB/Java_Developers/overview.jpg)
-
-
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/overview.jpg)
 
 #### Installing MongoDB(mac)
 
@@ -469,7 +467,7 @@ public class HelloWorldSparkFreemarkerStyle {
 
 #### Spark: Handling GET requests
 
-![mongoDB](/img/mongoDB/Java_Developers/process.jpg)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/process.jpg)
 
 ```java
 public class SparkRoutes {
@@ -573,13 +571,13 @@ public class SparkRoutes {
 
 #### Introduction to Our Class Project, The Blog
 
-![mongoDB](/img/mongoDB/Java_Developers/blog.jpg)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/blog.jpg)
 
 
 
 #### Blog in Relational Tables
 
-![mongoDB](/img/mongoDB/Java_Developers/relational_tables.jpg)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/relational_tables.jpg)
 
 **关系型数据库表结构如下：**
 
@@ -677,7 +675,7 @@ answer: 6 个表
 
 #### Blog in Documents
 
-![mongoDB](/img/mongoDB/Java_Developers/blog_document.jpg)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB//Java_Developers/blog_document.jpg)
 
 Given the document schema that we proposed for the blog, how many collections would we need to access to display the blog home page?
 
@@ -687,7 +685,7 @@ answer: 1
 
 #### Introduction to Schema Design
 
-![mongoDB](/img/mongoDB/Java_Developers/schema_design.jpg)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/schema_design.jpg)
 
 In which scenario is it impossible to embed data within a document (you must put the data in a separate collection)?
 
@@ -1962,7 +1960,7 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
 
 会话管理及用户的方式
 
-![mongoDB](/img/mongoDB/Java_Developers/session_management.png)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/session_management.png)
 
 
 
@@ -1974,7 +1972,7 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
 - Author Login
 - Author Logout
 
-![mongoDB](/img/mongoDB/Java_Developers/blog_ui.png)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/blog_ui.png)
 
 
 
@@ -2400,7 +2398,7 @@ Providing a table of contents by tag（要做到这一点，你可能不得不�
 
 注意嵌套文档只是在16MB 字节以内
 
-![mongoDB](/img/mongoDB/Java_Developers/schema_for_blog.png)
+![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/schema_for_blog.png)
 
 
 
@@ -3068,3 +3066,675 @@ public void addPostComment(final String name, final String email, final String b
 }
 ```
 
+
+
+### Week4: Performance
+
+#### Introduction to Week 4
+
+计算机的性能由多种因素驱动，包括底层硬件的性能-CPU、硬盘和内存，一旦选择了配置，它将是你的算法决定性能。对于数据库支持的应用程序，它将成为算法用于满足你的查询。
+
+有两种方法可以影响数据库查询的延迟和吞吐量。一种是向集合添加索引、一种是在多个服务器之间分配负载（使用分片）。
+
+在 MongoDB 3.0中引入了可插拔存储引擎更有趣。存储引擎是控制的软件，数据如何存储在磁盘上，如何选择存储将影响机器性能。
+
+性能通常是 DBA 数据库管理员负责，但优秀的开发人员了解性能，并在考虑性能的情况下编写应用程序可以解决性能问题。
+
+
+
+#### Storage Engines: Introduction
+
+Indexing: 索引
+
+Sharding: 分片，分发数据库查询，跨多个服务器
+
+数据库中存储引擎的含义：
+
+存储引擎是接口和持久存储之间，我们将调用磁盘，这可能是一个固态硬盘。
+
+MongoDB服务器与磁盘通信进行持久存储，通过存储引擎。
+
+用 Python编写程序，将用 PyMongo驱动程序使用有线协议与数据库服务器通信，当想要创建数据，读取数据，更新数据时，并删除数据，它将与存储引擎进行通信，然后将与磁盘通信。和所有不同的结构持有保存索引的文件和涉及文件的元数据都被写入持久存储，通过这个存储引擎。现在，可能是存储引擎本身决定使用内存来优化流程。换句话说，磁盘真的很慢。
+
+因为数据的想法是持久存储东西，会发生什么是存储引擎控制计算机上的内存，它可以决定放入内存中的内容，以及如何消耗内存以及持续存储到磁盘的内容。
+
+因此数据库服务器本身推迟了处理，服务器上的内存以及磁盘本身到存储引擎。
+
+现在，我们提供可插拔存储引擎架构，你可以在那里使用多个。
+
+例如，一辆车，你希望它有不同的引擎，你可以把引擎放在车里，然后它可能会改变汽车的性能特点。它可能加速更快或者它可能获得更好或更差的汽油里程，因为你放入汽车的引擎类型。同样，取决于发动机的类型。
+
+你加入 MongoDB，将获得不同的性能特征。
+
+有两个主要的存储引擎，一个是 MMAP，另一个是 WiredTiger(2014年收购 WiredTiger公司)
+
+如果你有一堆 MongoDB 服务器都在集群中运行，即存储引擎。不会影响那些不同的 MongoDB 之间的通信，存储引擎不会影响 API。例如，数据库呈现给程序员无论是什么接口，但底层都是相同的，你使用 MMAP 或 WiredTiger，性能会有一些差异
+
+Quiz
+
+The storage engine directly determines which of the following? Check all that apply.
+
+- The data file format
+- Format of indexes
+
+存储引擎控制数据文件格式，如何将数据写入磁盘到持久存储。它肯定会影响存储格式索引。它不会影响整体架构在复制方面的集群或者如何从服务器传输数据，服务器提供容错，它们不受存储引擎的影响。驱动程序的写协议完全不受影响。驱动程序与服务器通信，服务器通信到存储引擎。
+
+
+
+#### Storage Engines: MMAPv1
+
+MMAP存储引擎v1，它是 MongoDB 的原始存储引擎，它使用 MMAP 系统调用为了实现存储管理。
+
+```shell
+# 查看分配内存或映射
+man mmap
+```
+
+Quiz
+
+Which of the following statements about the MMAPv1 storage engine are true? Check all that apply.
+
+- MMAPv1 automatically allocates power-of-two-sized documents when new documents are inserted
+
+- MMAPv1 is built on top of the mmap system call that maps files into memory
+
+回答
+正确答案是:
+
+当插入新文档时，MMAPv1会自动分配两个大小的文档
+这是由存储引擎处理的。
+MMAPv1构建在将文件映射到内存的mmap系统调用之上
+这就是为什么我们称它为MMAPv1的基本思想。
+错误的是:
+
+MMAPv1提供文档级锁定
+它具有收集级锁定。
+MongoDB管理每个映射文件使用的内存，决定将哪些部分交换到磁盘。
+操作系统处理这个。
+
+
+
+#### Storage Engines: WiredTiger
+
+课堂讲稿
+在这节课中，Andrew用一个“-”来引用mongod过程的论证。虽然这样做有效，但是首选语法使用了两个破折号，因此，例如，在超过3.0的版本中调用WiredTiger存储引擎，您将使用以下命令。使用MongoDB 3.2或更高版本，您不需要提供使用WiredTiger的——storageEngine选项，因为这是默认选项。
+
+1. 不是文档级锁定，实际上是一个无锁实现，有一个乐观的并发模型存储。引擎假定两次写入都没有进行，如果是相同文件的话，然后是其中给一个写入到同一个文档，必须再试一次，而且是解开的对实际应用程序不可见，但我们确实得到了这个文档级别的并发性与 MMAP 存储中的集合级别并发引擎，这是一个巨大的胜利。
+2. 这个存储引擎提供压缩，两个文件本身、数据和索引。
+3. 也是一个仅附加存储引擎没有到位的更新。这意味着，如果你更新文件，标记不再使用此文档，将在某个地方分配新的空间，他们会在磁盘上写它。
+
+```shell
+# 杀死现有的 mongod进程
+killall mongod
+
+# 创建目录
+mkdir WT
+
+# 告诉 mongo 使用该目录
+mongod -dbpath WT -storageEngine wiredTiger
+
+# 如果杀掉 mongoDB 数据库后，使用原来的/data/db 数据目录，再尝试使用 wiredTiger 引擎启动会导致失败，不起作用，因为它无法读取这些文件。
+
+# 使用 db.xxxx.stats() 查看统计数据的详情，可以查看到关于 wiredTiger 的信息，包括它的size
+```
+
+WiredTiger 存储引擎无法打开 MMAP V1创建的文件
+
+Quiz
+
+下面哪个是WiredTiger存储引擎的特性?
+
+1. 文档级并发(因为它是一个无锁实现)
+2. 压缩
+
+
+
+#### Indexes
+
+谈谈索引对数据库性能的影响，如果没有索引，你想要找到某份文件，你需要扫描集合中的每个文档，并且可能有数百万，而这个集合扫描或者表扫描。你的查询是否会表现良好，这可能是最重要的因素。比 CPU 的速度更重要，比有多少内存更重要，是否可以使用某种索引，不得不看整个集合。
+
+那么索引如何运作？什么是指数？
+
+索引是一组有序的东西，比如说，你有一个名字索引，你可以把它想象成一个有序的清单，Andrew 排在最左边，Zoe排在最右边，中间肯能是 Bav,Charle。并且每个索引点都有指向物理记录的指针，所以会有某种指针到光盘上的位置。
+
+拥有有序的东西是件好事，搜索它的速度非常快。因为如果它实际上是一个线性列表，像这样，它不再典型的数据库中。但是如果它是这样的线性，那么你可以使用二进制进行搜索，它会记录两个项目的数量在此列表中。
+
+在真实数据库和 MongoDB 中，实际的方式该索引的结构成为 BTree，会使查询更快。
+
+但有时我们不只是想查询名字，我们还想查询名称和头发颜色。那怎么会有用呢？
+
+假如：(a,b,c)是一个索引二进制，搜索以下时索引会起作用：
+
+- a
+- a,b
+- a,b,c
+
+搜索以下时索引不会有作用：
+
+- c
+- c,b
+
+索引不是免费的，无论何时你在文件中改变某些东西都将影响索引，你将不得不更新该索引。你将不得不把它写在内存上，最终在磁盘上。
+
+索引实际上会减慢你的写入速度，但是你的阅读速度会快得多。
+
+Quiz
+
+哪种优化通常对数据库的性能影响最大?
+
+- 在大型集合上添加适当的索引，以便只有一小部分查询需要扫描集合。
+
+
+
+#### Creating Indexes
+
+```shell
+# 进入 mongo shell
+mongo
+
+# 选择 school db
+use school
+
+# 查找
+db.students.findOne()
+
+# 测试运行在 MMAPv1存储引擎上有1000万条记录的数据查询的性能
+db.students.find({student_id: 5})
+
+# 添加 explain() 命令，它运行在一个集合之上，它会告诉你它会有哪些索引用来满足这个查询
+db.students.explain().find({student_id: 5})
+# 返回以下内容
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "school.students",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+
+		},
+		"winningPlan" : {
+			"stage" : "COLLSCAN", // 表明它正在进行收集扫描，它正在查看所有文件，这将是非常缓慢的
+			"direction" : "forward"
+		},
+		"rejectedPlans" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "yl.local",
+		"port" : 27017,
+		"version" : "4.0.3",
+		"gitVersion" : "7ea530946fa7880364d88c8d8b6026bbc9ffa48c"
+	},
+	"ok" : 1
+}
+
+# 使用 findOne更快的原因是，一旦找到单个文档，它就可以退出查找
+db.students.findOne({student_id: 5})
+
+# 让我们添加索引 db.students.createIndex
+# 为 student_id 升序上编入索引
+db.students.createIndex({student_id: 1});
+
+# 当加入索引后按照 student_id搜索会非常快
+# 看看这次搜索在用什么索引
+db.students.explain().find({student_id: 5})
+# 返回一下内容
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "school.students",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"student_id" : {
+				"$eq" : 1
+			}
+		},
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"student_id" : 1
+				},
+				"indexName" : "student_id_1",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"student_id" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"student_id" : [
+						"[1.0, 1.0]"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "yl.local",
+		"port" : 27017,
+		"version" : "4.0.3",
+		"gitVersion" : "7ea530946fa7880364d88c8d8b6026bbc9ffa48c"
+	},
+	"ok" : 1
+}
+
+# 运行 explain(true) 可以告诉我们它实际上有多少文件
+db.students.explain().find({"student_id": 1})
+# 返回以下文件
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "school.students",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"student_id" : {
+				"$eq" : 1
+			}
+		},
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"student_id" : 1
+				},
+				"indexName" : "student_id_1",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"student_id" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"student_id" : [
+						"[1.0, 1.0]"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 0, 
+		"executionTimeMillis" : 0,
+		"totalKeysExamined" : 0,
+		"totalDocsExamined" : 0,
+		"executionStages" : {
+			"stage" : "FETCH",
+			"nReturned" : 0,
+			"executionTimeMillisEstimate" : 0,
+			"works" : 1,
+			"advanced" : 0,
+			"needTime" : 0,
+			"needYield" : 0,
+			"saveState" : 0,
+			"restoreState" : 0,
+			"isEOF" : 1,
+			"invalidates" : 0,
+			"docsExamined" : 0, // 检查的文件数量
+			"alreadyHasObj" : 0,
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"nReturned" : 0,
+				"executionTimeMillisEstimate" : 0,
+				"works" : 1,
+				"advanced" : 0,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 0,
+				"restoreState" : 0,
+				"isEOF" : 1,
+				"invalidates" : 0,
+				"keyPattern" : {
+					"student_id" : 1
+				},
+				"indexName" : "student_id_1",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"student_id" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"student_id" : [
+						"[1.0, 1.0]"
+					]
+				},
+				"keysExamined" : 0,
+				"seeks" : 1,
+				"dupsTested" : 0,
+				"dupsDropped" : 0,
+				"seenInvalidated" : 0
+			}
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "yl.local",
+		"port" : 27017,
+		"version" : "4.0.3",
+		"gitVersion" : "7ea530946fa7880364d88c8d8b6026bbc9ffa48c"
+	},
+	"ok" : 1
+}
+
+# 还可以添加复合索引到集合中
+# student_id 升序，class_id 降序
+db.students.createIndex({student_id: 1, class_id: -1})
+```
+
+Quiz
+
+请提供mongo shell命令，向名为students的集合添加索引，索引键为class, student_name。
+
+两者都不会朝“-1”方向发展。
+
+```shell
+db.students.createIndex({"class": 1, "student_name": 1})
+```
+
+
+
+#### Discovering(and Deleting)Indexes
+
+```shell
+# 获得集合中有哪些索引
+db.students.getIndexes();
+
+# 删除库
+use school
+db.runCommand({dropDatabase: 1})
+
+# 根据签名，删除索引
+db.students.dropIndex({"student_id": 1})
+```
+
+Quiz
+
+下列哪一种方法是在mongoDB中发现集合索引的有效方法?
+
+db.collection.getIndexes()
+
+
+
+#### Multikey Indexes
+
+在数组上创建索引，称为多键索引。注意不能有两个复合索引项
+
+```json
+{"name": "Andrew", tags: ["photography", "hiking", "golf"], "color": "red", "location": ["NY", "CA"]}
+```
+
+(tags) 
+
+(tags, color)
+
+(tags, location)
+
+```shell
+db.foo.insert({a:1, b:2})
+
+# 创建索引，字段 a 升序，字段 b 升序
+db.foo.createIndex({a:1, b:1})
+
+# 查看索引信息，winningPlan中使用索引扫描，但是 isMultikey: false 不是一个多键索引
+db.foo.explain().find({a:1, b:1})
+
+db.foo.insert({a:3, b:[3,5,7]})
+
+# 这时查看索引信息就显示 多键索引 isMultikey: true 已升级为多键
+db.foo.explain().find({a:1, b:1})
+
+# 这时查看索引信息也显示 多键索引 isMultikey: ture 已升级为多键
+db.foo.explain().find({a:3, b:5})
+
+# 查看集合的索引调用，就可看到两个索引
+db.foo.getIndexes()
+
+# 会提示错误，不能插入
+db.foo.insert({a:[3,4,6], b:[7,8,9]})
+
+# 查看记录发现，b是列表或数组，而 a 则不是
+db.foo.find()
+
+# 这样插入是可以的，总是一个多键索引的方式，b 必须是一个数组，它是一个多键索引，允许任何组合，例如：a 可以是数组，b 可以使标量；或者 b 可以是数组，a 可以是标量。这都是合法的，只是不能 a 和 b 都是数组
+db.foo.insert({a:[3,4,6], b:8})
+```
+
+Quiz
+
+Suppose we have a collection *foo* that has an index created as follows:
+
+```
+db.foo.createIndex( { a:1, b:1 } )
+```
+
+Which of the following inserts are valid to this collection?
+
+- db.foo.insert( { a : [ "apples", "oranges" ], b : "grapes" } )
+- db.foo.insert( { a : "grapes", b : "oranges" } )
+- db.foo.insert( { a : "grapes", b : [ 8, 9, 10 ] } )
+
+【注意：在多键索引中不合法】`db.foo.insert({a:[1,2,3], b:[5,6,7]})`
+
+
+
+#### Dot Notation and Multikey
+
+使用点表示法深入到文档中，并为某些内容添加索引在主文档的子文档中，而且用数组的东西来做这件事，所以结合起来带点符号的多键
+
+```shell
+# 为 scores 集合中的 score 字段加上索引
+# 因为有1000万份文件，创建索引大约需要15或20分钟来创建这个索引
+db.students.createIndex({"scores.score": 1})
+
+# 可以看到集合上现在有两个索引，一个是 _id, 另一个是 scores.score
+db.students.getIndexes()
+
+# 使用查询优化器，查找scores数组中score字段大于99的记录
+# 看到它会进行索引扫描
+db.students.explain().find({"scores.score": {"$gt": 99}})
+
+# 使用 elemMatch 匹配运算符（包含至少一个元素的数组字段的文档），检查分数数组匹配所有制定的查询条件
+db.students.explain().find({"scores": {"$elemMatch": {"type": "exam", "score": {"$gt": 99.8}}}})
+
+db.students.find({"scores": {"$elemMatch": {"type": "exam", "score": {"$gt": 99.8}}}}).pretty()
+
+# 统计共有多少条记录 20278条
+db.students.find({"scores": {"$elemMatch": {"type": "exam", "score": {"$gt": 99.8}}}}).count()
+
+# 通过 explain(true) 得知检查了多少文件
+db.students.explain(true).find({"scores": {"$elemMatch": {"type": "exam", "score": {"$gt": 99.8}}}})
+
+# 使用 and 运算符不能保证什么时候在没有 elemMatch 的情况下找到满足此条件的文档
+db.students.find({"$and":[{"scores.type": "exam"},{"scores.score": {"$gt": 99.8}}]}).pretty()
+```
+
+Quiz
+
+假设您在数据库earth中有一个名为people的集合，其中包含以下形式的文档:
+
+```json
+{
+    "_id" : ObjectId("551458821b87e1799edbebc4"),
+    "name" : "Eliot Horowitz",
+    "work_history" : [
+        {
+            "company" : "DoubleClick",
+            "position" : "Software Engineer"
+        },
+        {
+            "company" : "ShopWiki",
+            "position" : "Founder & CTO"
+        },
+        {
+            "company" : "MongoDB",
+            "position" : "Founder & CTO"
+        }
+    ]
+}
+```
+
+键入您将在Mongo shell中发出的命令，在company上按降序创建索引。
+
+```shell
+db.people.createIndex({"work_history.company": -1})
+```
+
+
+
+#### Index Creation Option, Unique
+
+创建唯一约束
+
+```shell
+# 删除 stuff 集合
+db.stuff.drop()
+
+# 插入数据
+db.stuff.insert({"thing": "apple"})
+db.stuff.insert({"thing": "pear"})
+db.stuff.insert({"thing": "apple"})
+
+# 查看数据
+db.stuff.find()
+
+# 为 thing 字段创建升序排列索引
+db.stuff.createIndex({"thing": 1})
+
+# 删除刚刚创建的索引
+db.stuff.dropIndex({"thing": 1})
+
+# 为 thing 字段创建升序排列索引、且是唯一的索引
+# 结果报错，无法创建索引，因为这个系列里面有两个相同的值
+db.stuff.createIndex({"thing": 1, {"unique": true}})
+
+# 那就先删除其中给一个 apple吧
+db.stuff.remove({"thing": "apple", {"justOne": true}})
+
+# 删除后再去添加唯一索引
+db.stuff.createIndex({"thing": 1, {"unique": true}})
+
+# 当插入一个已经存在的值时为报错，duplicate key
+db.stuff.insert({"thing": "pear"})
+
+# 查看 stuff 集合的索引，会看到关于 thing 的索引是唯一的 unique
+# 但是不会显示 _id 是 unique，虽然 _id 本来就是唯一的
+db.stuff.getIndexes()
+
+# 通过插入，验证 _id 是否唯一
+db.stuff.insert({"_id": "andrew"})
+# 再插入时会出现错误，_id上的重复键错误，这是完全相同的错误，所以即使数据库没有告诉你_id的索引是唯一的，但它确实是独一无二的
+db.stuff.insert({"_id": "andrew"})
+
+```
+
+Quiz
+
+请提供mongo shell命令，在student_id上创建唯一的索引class_id，为集合中的学生进行升序。
+
+```shell
+db.students.createIndex( {"student_id" : 1, "class_id" : 1 }, { "unique" : true } );
+```
+
+
+
+#### Index Creation, Sparse
+
+稀疏索引是索引键丢失时可以使用的索引
+
+```json
+{a:1, b:2, c:5}
+{a:10, b:5, c:10}
+{a:13, b:17}
+{a:7, b:23}
+```
+
+如果在 a 上创建索引不会成为问题，在 b 上创建唯一索引不会成为问题，但是在 c 上的唯一索引确实存在问题。原因是如果在 c 上创建一个唯一索引，这些文档，两者的 c 值都为 null，因此，它会违反索引的唯一约束，解决方案是用 sparse option
+
+sparse 告诉数据库服务器是不应该的，在索引中包含缺少密钥的文档
+
+```shell
+# 创建一个“员工”小集合
+db.employees.find().pretty()
+
+# 查看集合中的索引
+db.employees.getIndexes()
+
+# 给手机 cell 上添加唯一索引，会出现错误，有多个员工没有手机号码
+# errmsg: exception: E11000 duplicate key error index
+db.employees.createIndex({cell:1}, {unique:true})
+# 如果指定一个额外的选项就可以愉快地创建索引
+db.employees.createIndex({cell:1}, {unique:true, sparse:true}})
+
+# 再次查看集合中的索引，可以看到 cell 的索引属性 unique:true, sparse:true
+db.employees.getIndexes()
+
+# 按照员工 id 排升序
+db.employess.find().sort({"employee_id": 1})
+
+# 按照员工 id 排降序
+db.employess.find().sort({"employee_id": -1})
+
+# 使用解释器查看员工id查询
+# 可以看到 winningPlan 中 IXSCAN 对文档进行排序，这将是一个非常快速的排序
+db.employees.explain().find().sort({"employee_id": -1})
+
+# 使用解释器查看员工手机查询
+# 可以看到 winningPlan 中 SORT 对文档进行排序，看到它进行了完整的收集扫描，它无法在手机上使用该索引，因为这是一个稀缺索引，数据库知道有缺少的条目，即有些文件没有编入索引，如果它使用该索引进行排序，它知道它会省略文件，而且它不想省略文件，因此它会恢复到集合扫描。
+# 因此，请记住，稀疏索引不能用于如果有任何文件丢失的排序情况
+db.employees.explain().find().sort({"cell": -1})
+```
+
+关于使用稀疏索引，它可以使用更少的空间。这就是你为什么使用稀疏索引的原因之一。
+
+Quiz
+
+What are the advantages of a sparse index? Check all that apply.(稀疏指数的优点是什么?检查所有适用的。)
+
+- The index will be smaller than it would if it were not sparse.(该指数将会比如果它不是稀疏的会更小。)
+- You can gain greater flexibility with creating Unique indexes.(通过创建惟一索引，您可以获得更大的灵活性。)
+
+
+
+#### Index Creation, Background
+
+forground 前台索引创建时 MongoDB 中的默认设置，相对有以下好处：
+
+- 相对较快
+- 阻止用户操作数据库（正式环境下，要小心）
+
+background 后台索引，有以下好处：
+
+- 相对于前台索引比较慢
+- 不会阻止用户操作数据库
+- 一次只能有一个索引在建，下一个将排队并等待
+
+```shell
+# 以一个1000万条的学生库为例
+# 当这样操作时，将会消耗大约20分钟左右的时间创建索引
+db.studens.createIndex({"scores.score": 1})
+
+# 当我继续打开一个标签页执行 Mongo shell 操作时
+mongo
+use school
+db.students.findOne() # 会完全被阻止，卡在那里
+# 没办法只能杀掉它 command + c
+do you want to kill the current op(s) on the server?(y/n): y
+# 再进入
+mongo
+# 查询位于别的库的集合就不会影响
+db.employees.find()
+```
