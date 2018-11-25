@@ -16,28 +16,28 @@ tags:
 
 ### 了解 TAPD 轻量敏捷项目管理流程
 
-![agile_progress](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/tapd/agile_progress.png)
+![agile_progress](/img/tapd/agile_progress.png)
 
 
 
 ### 1. 创建需求 Backlog
 
-![backlog](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/tapd/backlog.png)
+![backlog](/img/tapd/backlog.png)
 
 
 
 ### 2. 规划迭代
 
-![iteration](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/tapd/iteration.png)
+![iteration](/img/tapd/iteration.png)
 
 
 
 ### 3. 跟踪迭代进度
 
-![tracking_iteration_progress](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/tapd/tracking_iteration_progress.png)
+![tracking_iteration_progress](/img/tapd/tracking_iteration_progress.png)
 
 
 
 ### 4. 迭代回顾
 
-![iteration_review](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/tapd/iteration_review.png)
+![iteration_review](/img/tapd/iteration_review.png)

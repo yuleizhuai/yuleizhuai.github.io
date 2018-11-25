@@ -24,3 +24,5 @@ tags:
 | [关于 Sentinel 的整理](https://yulei.vip/2018/08/27/hello-sentinel/) |
 | [关于 Nacos 的整理](https://yulei.vip/2018/08/29/hello-nacos/) |
 | [关于 XxPay 的整理](https://yulei.vip/2018/08/31/hello-xxpay/) |
+| [关于 TAPD 的整理](https://yulei.vip/2018/10/29/01TAPD/)     |
+

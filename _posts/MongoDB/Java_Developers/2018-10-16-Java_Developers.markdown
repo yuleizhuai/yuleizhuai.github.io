@@ -24,7 +24,7 @@ tags:
 
 #### Overview of Building an App with MongoDB
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/overview.jpg)
+![mongoDB](/img/mongoDB/Java_Developers/overview.jpg)
 
 #### Installing MongoDB(mac)
 
@@ -467,7 +467,7 @@ public class HelloWorldSparkFreemarkerStyle {
 
 #### Spark: Handling GET requests
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/process.jpg)
+![mongoDB](/img/mongoDB/Java_Developers/process.jpg)
 
 ```java
 public class SparkRoutes {
@@ -571,13 +571,13 @@ public class SparkRoutes {
 
 #### Introduction to Our Class Project, The Blog
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/blog.jpg)
+![mongoDB](/img/mongoDB/Java_Developers/blog.jpg)
 
 
 
 #### Blog in Relational Tables
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/relational_tables.jpg)
+![mongoDB](/img/mongoDB/Java_Developers/relational_tables.jpg)
 
 **关系型数据库表结构如下：**
 
@@ -675,7 +675,7 @@ answer: 6 个表
 
 #### Blog in Documents
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB//Java_Developers/blog_document.jpg)
+![mongoDB](/img/mongoDB//Java_Developers/blog_document.jpg)
 
 Given the document schema that we proposed for the blog, how many collections would we need to access to display the blog home page?
 
@@ -685,7 +685,7 @@ answer: 1
 
 #### Introduction to Schema Design
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/schema_design.jpg)
+![mongoDB](/img/mongoDB/Java_Developers/schema_design.jpg)
 
 In which scenario is it impossible to embed data within a document (you must put the data in a separate collection)?
 
@@ -1960,7 +1960,7 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
 
 会话管理及用户的方式
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/session_management.png)
+![mongoDB](/img/mongoDB/Java_Developers/session_management.png)
 
 
 
@@ -1972,7 +1972,7 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
 - Author Login
 - Author Logout
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/blog_ui.png)
+![mongoDB](/img/mongoDB/Java_Developers/blog_ui.png)
 
 
 
@@ -2398,7 +2398,7 @@ Providing a table of contents by tag（要做到这一点，你可能不得不�
 
 注意嵌套文档只是在16MB 字节以内
 
-![mongoDB](/Users/yulei/Workspaces/myblog/yuleizhuai.github.io/img/mongoDB/Java_Developers/schema_for_blog.png)
+![mongoDB](/img/mongoDB/Java_Developers/schema_for_blog.png)
 
 
 
