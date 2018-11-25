@@ -3,7 +3,7 @@ title: Yulei Blog
 SEOTitle: 于磊的博客 | Yulei Blog
 header-img: img/home-bg.jpg
 email: huxpro@gmail.com
-description: "懂点技术、会点管理"
+description: "技术、商业、管理，全面发展"
 keyword: "于磊, Yulei, 于磊的博客, Yulei Blog, 博客, 个人网站, 互联网"
 url: "https://yulei.vip"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
@@ -72,7 +72,7 @@ ga_domain: yulei.vip
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "平静、自在"
+sidebar-about-description: "想，就去做吧~"
 sidebar-avatar: /img/avatar-hux-ny.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 

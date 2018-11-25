@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "<span style='color:red'>【置顶】</span>每天正念10分钟，告别心理亚健康"
+title:      "<span style='color:red'>【目录】</span>每天正念10分钟，告别心理亚健康"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2088-09-18 18:37:04
+date:       2018-09-18 18:37:04
 author:     "于磊"
 header-img: "img/mindful/yoga-prielbrusje.jpg"
 catalog: true
@@ -55,7 +55,7 @@ tags:
 
 #### [第14天 - 情商 | 正念和情绪](https://yulei.vip/2018/11/08/14Mindfulness_and_emotion/)
 
-#### 【待整理】第15天 - 情商 | 命名情绪
+#### [第15天 - 情商 | 命名情绪](https://yulei.vip/2018/11/12/15Naming_emotions/)
 
 #### 第16天 - 情绪 | 应对困难情绪
 
