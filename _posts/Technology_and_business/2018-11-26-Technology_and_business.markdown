@@ -2,14 +2,12 @@
 layout:     post
 title:      "<span style='color:red'>【目录】</span>技术与商业案例解读"
 subtitle:   "作者：许飞"
-date:       2018-11-25 16:14:50
+date:       2018-11-26 10:13:21
 author:     "于磊"
 header-img: "img/technology_and_business/bg.jpg"
 catalog: true
 tags:
-    - 曲晓音
-    - 产品经理
-    - NPDP
+    - 技术与商业案例
 
 ---
 
@@ -25,7 +23,7 @@ tags:
 
 ### 西雅图公司系列
 
-#### [RealNetworks: 一个帝国的兴衰](https://yulei.vip/2018/11/26/RealNetWorks/)
+#### [RealNetworks: 一个帝国的兴衰](https://yulei.vip/2018/11/26/RealNetworks/)
 
 #### 可视化分析鼻祖 Tableau
 
