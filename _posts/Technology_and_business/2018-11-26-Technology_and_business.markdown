@@ -143,7 +143,7 @@ tags:
 
 ### 企业管理软件公司系列
 
-#### 仁科
+#### [仁科](https://yulei.vip/2018/11/29/PeopleSoft/)
 
 - ##### 被迫再创业的 David Duffield
 
