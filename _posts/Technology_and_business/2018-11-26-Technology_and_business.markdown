@@ -51,7 +51,7 @@ tags:
 
 
 
-### 亚马逊领导力准则
+### [亚马逊领导力准则](https://yulei.vip/2018/12/08/Amazon_leadership_principles/)
 
 #### 亚马逊领导力准则之要有硬骨头
 
