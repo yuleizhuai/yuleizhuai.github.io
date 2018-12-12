@@ -100,6 +100,9 @@ cp * /usr/local/bin
 # 或者配置.bash_profile PATH变量
 export PATH="/Users/yulei/software/mongodb-osx-x86_64-enterprise-4.0.3/bin:$PATH"
 
+# 去掉 shell 中用户名前缀
+# export PS1='$ '
+
 # 退出这个 root shell
 exit
 
