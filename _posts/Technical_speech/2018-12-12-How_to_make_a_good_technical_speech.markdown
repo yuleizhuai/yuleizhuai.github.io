@@ -14,6 +14,6 @@ tags:
 
 ---
 
-![technology_and_business](/img/technical_speech/How_to_make_a_good_technical_speech.png)
+![technology_and_business](/img/technical_speech/technical_speech.png)
 
 
