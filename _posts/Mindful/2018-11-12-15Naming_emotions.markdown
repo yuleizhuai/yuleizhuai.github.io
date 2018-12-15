@@ -4,7 +4,7 @@ title:      "第15天 - 情商 | 命名情绪"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
 date:       2018-11-12 09:48:29
 author:     "于磊"
-header-img: "img/mindful/14_bg.jpg"
+header-img: "img/mindful/15_bg.jpg"
 catalog: true
 tags:
     - 正念冥想
