@@ -19,6 +19,8 @@ tags:
 
 ### [01 | 架构到底是什么？](https://yulei.vip/2018/12/14/01What_is_architecture/)
 
+### [02 | 架构设计的历史背景](https://yulei.vip/2018/12/16/02The_historical_background_of_architectural_design/)
+
 
 
 ![learning_architecture_from_zero](/img/learning_architecture_from_zero/share.jpg)
