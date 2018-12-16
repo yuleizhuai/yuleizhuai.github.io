@@ -21,6 +21,11 @@ tags:
 
 ### [02 | 架构设计的历史背景](https://yulei.vip/2018/12/16/02The_historical_background_of_architectural_design/)
 
+### [03 | 架构设计的目的](https://yulei.vip/2018/12/16/03The_purpose_of_architectural_design/)
+
+
+
 
 
 ![learning_architecture_from_zero](/img/learning_architecture_from_zero/share.jpg)
+
