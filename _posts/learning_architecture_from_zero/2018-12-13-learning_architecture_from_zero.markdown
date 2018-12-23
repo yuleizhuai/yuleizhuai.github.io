@@ -23,6 +23,8 @@ tags:
 
 ### [03 | 架构设计的目的](https://yulei.vip/2018/12/16/03The_purpose_of_architectural_design/)
 
+### [04 | 复杂度来源-高性能](https://yulei.vip/2018/12/23/04High_performance/)
+
 
 
 
