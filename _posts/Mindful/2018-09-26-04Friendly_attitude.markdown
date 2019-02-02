@@ -2,7 +2,7 @@
 layout:     post
 title:      "第4天 - 正念基础 | 友善的态度"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-09-26 11:24:11
+date:       2018-09-26 00:00:00
 author:     "于磊"
 header-img: "img/home-bg5.jpg"
 catalog: true
@@ -12,8 +12,6 @@ tags:
     - 心理学
 
 ---
-
-
 
 我们一直在讲，活在当下
 
@@ -228,56 +226,3 @@ tags:
 微笑可以滋养一种友好、接纳的态度
 
 叮......
-
-
-
-
-
-
-
-
-
-
-
-![mindful_directory](/img/mindful/share.jpeg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

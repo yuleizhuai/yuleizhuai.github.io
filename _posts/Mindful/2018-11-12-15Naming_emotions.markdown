@@ -2,7 +2,7 @@
 layout:     post
 title:      "第15天 - 情商 | 命名情绪"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-11-12 09:48:29
+date:       2018-11-12 00:00:00
 author:     "于磊"
 header-img: "img/mindful/15_bg.jpg"
 catalog: true
@@ -12,8 +12,6 @@ tags:
     - 心理学
 
 ---
-
-
 
 继续进行基础的正念练习
 
@@ -246,50 +244,6 @@ tags:
 身处当下，保持平衡
 
 叮......
-
-
-
-
-
-![mindful_directory](/img/mindful/share.jpeg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

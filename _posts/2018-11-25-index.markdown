@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "<span style='color:red'>【置顶】</span>目录索引"
+title:      "【置顶】目录索引"
 subtitle:   "作者：于磊V2.0"
 date:       2088-09-03 15:10:31
 author:     "于磊"

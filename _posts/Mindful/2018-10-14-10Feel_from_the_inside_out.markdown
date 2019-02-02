@@ -2,7 +2,7 @@
 layout:     post
 title:      "第10天 - 正念基础 | 由内而外的感受"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-10-14 19:38:38
+date:       2018-10-14 00:00:00
 author:     "于磊"
 header-img: "img/mindful/10_bg.jpg"
 catalog: true
@@ -284,46 +284,3 @@ tags:
 去接纳整个身体的感受
 
 叮......
-
-![mindful_directory](/img/mindful/share.jpeg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

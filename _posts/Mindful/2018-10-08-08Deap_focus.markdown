@@ -2,7 +2,7 @@
 layout:     post
 title:      "第8天 - 正念基础 | 深入专注力"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-10-08 18:53:14
+date:       2018-10-08 00:00:00
 author:     "于磊"
 header-img: "img/mindful/07_bg.jpg"
 catalog: true
@@ -12,8 +12,6 @@ tags:
     - 心理学
 
 ---
-
-
 
 呼吸是保持正念的一个简单好用的锚定点
 
@@ -240,50 +238,3 @@ tags:
 它将从很多方面来帮助你
 
 叮......
-
-
-
-
-
-![mindful_directory](/img/mindful/share.jpeg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

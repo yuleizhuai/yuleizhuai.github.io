@@ -2,7 +2,7 @@
 layout:     post
 title:      "第7天 - 正念基础 | 数呼吸"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-10-04 11:32:29
+date:       2018-10-04 00:00:00
 author:     "于磊"
 header-img: "img/mindful/07_bg.jpg"
 catalog: true
@@ -12,8 +12,6 @@ tags:
     - 心理学
 
 ---
-
-
 
 继续练习正念呼吸的同时
 
@@ -170,48 +168,3 @@ tags:
 即使是短期的进行稳定注意力的练习，也会增强你的正念和觉知
 
 叮......
-
-
-
-![mindful_directory](/img/mindful/share.jpeg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

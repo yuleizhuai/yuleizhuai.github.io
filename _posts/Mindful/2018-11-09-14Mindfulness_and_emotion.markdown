@@ -2,7 +2,7 @@
 layout:     post
 title:      "第14天 - 情商 | 正念和情绪"
 subtitle:   "作者：杰克·康菲尔德、塔拉·布拉赫 来自：壹心理与睿心"
-date:       2018-11-08 10:18:40
+date:       2018-11-08 00:00:00
 author:     "于磊"
 header-img: "img/mindful/14_bg.jpg"
 catalog: true
@@ -12,8 +12,6 @@ tags:
     - 心理学
 
 ---
-
-
 
 这段时间，正念觉知的练习让我们和我们的呼吸以及身体都走的越来越近
 
@@ -194,48 +192,3 @@ tags:
 在需要时明智的、充满觉知的做出回应
 
 叮......
-
-
-
-![mindful_directory](/img/mindful/share.jpeg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
