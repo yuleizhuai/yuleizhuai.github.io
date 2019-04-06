@@ -17,7 +17,7 @@ tags:
 
 | [杰克·康菲尔德, 塔拉·布拉赫《每天正念10分钟，告别心理亚健康》](https://yulei.vip/2018/09/18/mindful/) |
 | ------------------------------------------------------------ |
-| [蔡康永的情商课](https://yulei.vip/2019/02/24/emotion/)      |
+| [蔡康永的情商课](https://yulei.vip/2019/02/24/index/)        |
 | [曲晓音《硅谷产品实战36讲》](https://yulei.vip/2018/09/03/silicon-valley-products/) |
 | [徐飞《技术与商业案例解读》](https://yulei.vip/2018/11/26/Technology_and_business/) |
 | [李运华《从零开始学架构》](https://yulei.vip/2018/12/13/learning_architecture_from_zero/) |
