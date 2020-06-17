@@ -1,0 +1,90 @@
+---
+layout:     post
+title:      "【目录】10x 程序员工作法"
+subtitle:   "作者：郑晔 来自：极客时间"
+date:       2020-06-17 00:00:00
+author:     "于磊"
+header-img: "img/10_times_programmer_work_method/35c3207e975934a6c92443f1ec156f29.jpg"
+catalog: true
+tags:
+    - 10x程序员工作法
+
+
+---
+
+### 脑图
+
+![mindful_directory](/img/10_times_programmer_work_method/index.png)
+
+
+
+### 开篇词
+
+程序员解决的问题，大多不是程序问题
+
+### 思考框架
+
+### 以终为始
+
+### 任务分解
+
+### 沟通反馈
+
+### 自动化
+
+### 综合运用
+
+### 结语
+
+
+
+
+
+
+
+
+
+![mindful_directory](/img/10_times_programmer_work_method/share.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
