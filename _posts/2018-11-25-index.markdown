@@ -17,12 +17,13 @@ tags:
 
 | 【未完待续】[郑晔《10x 程序员工作法》](https://yulei.vip/2020/06/17/index/) |
 | ------------------------------------------------------------ |
+| 【未完待续】[曲晓音《硅谷产品实战36讲》](https://yulei.vip/2018/09/03/silicon-valley-products/) |
+| 【未完待续】[徐飞《技术与商业案例解读》](https://yulei.vip/2018/11/26/Technology_and_business/) |
+| 【未完待续】[李运华《从零开始学架构》](https://yulei.vip/2018/12/13/learning_architecture_from_zero/) |
+| 【未完待续】[苏玲《玩转 Git 三剑客》](https://yulei.vip/2018/12/13/Play_Git_three_musketeers/) |
+| 【未完待续】[开言英语](https://yulei.vip/2020/02/20/index/)  |
 | [杰克·康菲尔德, 塔拉·布拉赫《每天正念10分钟，告别心理亚健康》](https://yulei.vip/2018/09/18/mindful/) |
 | [蔡康永的情商课](https://yulei.vip/2019/02/24/index/)        |
-| [曲晓音《硅谷产品实战36讲》](https://yulei.vip/2018/09/03/silicon-valley-products/) |
-| [徐飞《技术与商业案例解读》](https://yulei.vip/2018/11/26/Technology_and_business/) |
-| [李运华《从零开始学架构》](https://yulei.vip/2018/12/13/learning_architecture_from_zero/) |
-| [苏玲《玩转 Git 三剑客》](https://yulei.vip/2018/12/13/Play_Git_three_musketeers/) |
 | [如果做一场技术演讲](https://yulei.vip/2018/12/12/How_to_make_a_good_technical_speech/) |
 | [MongoDB for Java Developers](https://yulei.vip/2018/10/16/Java_Developers/) |
 | [M001: MongoDB Basics](https://yulei.vip/2018/10/16/Basics/) |
