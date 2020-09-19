@@ -2,7 +2,7 @@
 layout:     post
 title:      "Introducing yourself at an event"
 subtitle:   "作者：于磊 来自：开言英语"
-date:       2020-06-22 00:00:00
+date:       2020-06-23 00:00:00
 author:     "于磊"
 header-img: "img/silicon_valley_products/06_bg.jpg"
 catalog: true
@@ -177,7 +177,7 @@ tags:
 
 **Adam**: Well, some lawyers are liars. That's right.
 
-**Lisa**: And we'll see "lawyer" in the next line when Sus says, "That's wonderful! Do you plan on becoming a lawyer?"
+**Lisa**: And we'll see "lawyer" in the next line when Sue says, "That's wonderful! Do you plan on becoming a lawyer?"
 
 > plan on `phr.计划，打算`
 
@@ -209,7 +209,7 @@ tags:
 
 **Adam**: So for your guys, maybe your goal is to speak English very well.
 
-**Lisa**: Yeah, or you might have career goals like Bob. For example, your goal could be to become a doctor.
+**Lisa**: Yeah, or you might have career`n.生涯；职业；事业` goals like Bob. For example, your goal could be to become a doctor.
 
 **Adam**: Right. And other people like knowing about these things. They like to know about your plans. They like to know about your goals for the future.
 
@@ -221,7 +221,7 @@ tags:
 
 **Lisa**: Yes, so "introduce," we talked about this a little bit in the beginning. It just means to say "Hi, my name is blah blah blah. I wok in blah blah blah."
 
-**Adam**: Right, so you can introduce yourself or you can introduce another people like a friend or a co-worker.
+**Adam**: Right, so you can introduce yourself or you can introduce another person like a friend or a co-worker.
 
 > co-worker `n.同事`
 
@@ -243,7 +243,7 @@ tags:
 
 **Lisa**: All right, let's do that.
 
-**Adam**: So today's grammar is using the present continuous to talk about he future.
+**Adam**: So today's grammar is using the present continuous to talk about the future.
 
 **Lisa**: Okay, so before you go, what is the present continuous? All it means js just "I am doing."
 
@@ -289,7 +289,7 @@ tags:
 
 **Adam**: Now that's the first part of our grammar point. The second part is about the word "will."
 
-**Lisa**: Yes, what is the difference between the present continuous and "will"? Well, when you use the present continuous like "I'm starting," it sounds sure, right? You should really sure, but "will," we can use this when, well, we're not sure.
+**Lisa**: Yes, what is the difference between the present continuous and "will"? Well, when you use the present continuous like "I'm starting," it sounds sure, right? You sound really sure, but "will," we can use this when, well, we're not sure.
 
 **Adam**: Not sure.
 
@@ -333,7 +333,7 @@ tags:
 
 ------
 
-**Lisa**: Okay, we are back. So we learned a lot of good words and phrases today, but let's talk more about introducing ourselves naturally.
+**Lisa**: Okay, we are back. So we learned a lot of good words and phrases`n.短语；词组` today, but let's talk more about introducing ourselves naturally.
 
 **Adam**: Okay, so in the lesson today, Sue said, "I work in education" and Bob said, "I'm a teacher."
 
