@@ -1,10 +1,10 @@
 ---
 layout:     post
-title:      "<span style='color:red'>【目录】</span>硅谷产品实战36讲"
+title:      "【目录】硅谷产品实战36讲"
 subtitle:   "作者：曲晓音 —— Facebook 产品经理"
 date:       2018-09-03 15:10:31
 author:     "于磊"
-header-img: "img/silicon_valley_products/background.jpg"
+header-img: "img/about-bg.jpg"
 catalog: true
 tags:
     - 曲晓音
