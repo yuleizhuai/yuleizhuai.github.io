@@ -1,0 +1,135 @@
+---
+layout:     post
+title:      "第5周 技术选型"
+subtitle:   "作者：于磊 来自：极客大学架构师训练营"
+date:       2020-10-23 00:00:00
+author:     "于磊"
+header-img: "img/a/index1.png"
+catalog: true
+tags:
+    - 极客大学
+    - 架构师
+
+
+
+
+---
+
+
+
+
+
+## 作业一（2 选 1）：
+
+1. 用你熟悉的编程语言实现一致性 hash 算法。
+2. 编写测试用例测试这个算法，测试 100 万 KV 数据，10 个服务器节点的情况下，计算这些 KV 数据在服务器上分布数量的标准差，以评估算法的存储负载不均衡性。
+
+
+
+因缺乏算法实现能力，参考原文实现：https://blog.csdn.net/u011305680/article/details/79721030
+
+```java
+package hash;
+ 
+import java.util.SortedMap;
+import java.util.TreeMap;
+ 
+/**
+ * 不带虚拟节点的一致性Hash算法
+ */
+public class ConsistentHashingWithoutVirtualNode {
+ 
+    //待添加入Hash环的服务器列表
+    private static String[] servers = { "192.168.0.0:111", "192.168.0.1:111",
+            "192.168.0.2:111", "192.168.0.3:111", "192.168.0.4:111" };
+ 
+    //key表示服务器的hash值，value表示服务器
+    private static SortedMap<Integer, String> sortedMap = new TreeMap<Integer, String>();
+ 
+    //程序初始化，将所有的服务器放入sortedMap中
+    static {
+        for (int i=0; i<servers.length; i++) {
+            int hash = getHash(servers[i]);
+            System.out.println("[" + servers[i] + "]加入集合中, 其Hash值为" + hash);
+            sortedMap.put(hash, servers[i]);
+        }
+        System.out.println();
+    }
+ 
+    //得到应当路由到的结点
+    private static String getServer(String key) {
+        //得到该key的hash值
+        int hash = getHash(key);
+        //得到大于该Hash值的所有Map
+        SortedMap<Integer, String> subMap = sortedMap.tailMap(hash);
+        if(subMap.isEmpty()){
+            //如果没有比该key的hash值大的，则从第一个node开始
+            Integer i = sortedMap.firstKey();
+            //返回对应的服务器
+            return sortedMap.get(i);
+        }else{
+            //第一个Key就是顺时针过去离node最近的那个结点
+            Integer i = subMap.firstKey();
+            //返回对应的服务器
+            return subMap.get(i);
+        }
+    }
+    
+    //使用FNV1_32_HASH算法计算服务器的Hash值,这里不使用重写hashCode的方法，最终效果没区别
+    private static int getHash(String str) {
+        final int p = 16777619;
+        int hash = (int) 2166136261L;
+        for (int i = 0; i < str.length(); i++)
+            hash = (hash ^ str.charAt(i)) * p;
+        hash += hash << 13;
+        hash ^= hash >> 7;
+        hash += hash << 3;
+        hash ^= hash >> 17;
+        hash += hash << 5;
+ 
+        // 如果算出来的值为负数则取其绝对值
+        if (hash < 0)
+            hash = Math.abs(hash);
+        return hash;
+        }    
+  		
+  		public static void main(String[] args) {        
+        String[] keys = {"太阳", "月亮", "星星","木星"};        
+        for (int i = 0; i < keys.length; i++) {            
+          System.out.println("[" + keys[i] + "]的hash值为" + getHash(keys[i])                    + ", 被路由到结点[" + getServer(keys[i]) + "]");        
+        }    
+      }
+}
+```
+
+
+
+执行结果：
+
+[192.168.0.0:111]join in collections, its hash code is 575774686
+[192.168.0.1:111]join in collections, its hash code is 8518713
+[192.168.0.2:111]join in collections, its hash code is 1361847097
+[192.168.0.3:111]join in collections, its hash code is 1171828661
+[192.168.0.4:111]join in collections, its hash code is 1764547046
+
+[太阳]的hash值为1977106057, 被路由到结点[192.168.0.1:111]
+[月亮]的hash值为1132637661, 被路由到结点[192.168.0.3:111]
+[星星]的hash值为880019273, 被路由到结点[192.168.0.3:111]
+[木星]的hash值为1574472932, 被路由到结点[192.168.0.4:111]
+
+
+
+
+
+## 作业二：根据当周学习情况，完成一篇学习总结
+
+![第 5 周 技术选型（一）](/img/a/05/第 5 周 技术选型（一）.png)
+
+![5.1 分布式缓存架构：架构原理与使用中的注意事项](/img/a/05/5.1 分布式缓存架构：架构原理与使用中的注意事项.png)
+
+![5.2 分布式缓存架构：常见的缓存实现形式](/img/a/05/5.2 分布式缓存架构：常见的缓存实现形式.png)
+
+![5.3 分布式缓存架构：一致性 Hash 算法](/img/a/05/5.3 分布式缓存架构：一致性 Hash 算法.png)
+
+![5.4 消息队列：如何避免系统故障传递？](/img/a/05/5.4 消息队列：如何避免系统故障传递？.png)
+
