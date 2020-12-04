@@ -1,0 +1,111 @@
+---
+layout:     post
+title:      "第11周 安全稳定"
+subtitle:   "作者：于磊 来自：极客大学架构师训练营"
+date:       2020-12-04 00:00:00
+author:     "于磊"
+header-img: "img/a/index1.png"
+catalog: true
+tags:
+    - 极客大学
+    - 架构师
+
+
+
+
+---
+
+
+
+
+
+## 作业一（至少完成一项）：
+
+- 导致系统不可用的原因有哪些？保障系统稳定高可用的方案有哪些？请分别列举并简述。
+
+  导致系统不可用的原因，从主观上可分为两大类：
+
+  1. 人为导致的错误，导致系统负载过大，从而影响系统瘫痪。
+     - 程序员开发代码时，逻辑处理不恰当。
+     - 运维人员日常管理时，没有及时监控预警。
+     - 架构师设计系统时，未考虑周全。
+     - 产品经理初始设计产品时，未准确预估用户量、业务量的增长。
+     - 市场营销做活动运营时，未准确评估活动的增长。
+  2. 自然灾害导致的错误。
+     - 由于自然界不可抗力的因素，如地震、水灾等导致的服务器不可用。导致服务中断，从而影响系统不可用。
+
+  保障系统稳定高可用的方案有：
+
+  架构师设计系统时，首先充分理解产品需求，根据业务量、用户量全局综合考虑总体架构设计。具体高可用的方案有：
+
+  1. 运行程序设计方法，设计合理的高内聚、低耦合的组件。
+  2. 根据业务需求，运用分层设计思想。
+  3. 针对多系统交互场景，设计消息异步通信机制。进行系统隔离。
+  4. 针对数据库存储场景，结合业务需求。设置主从、双主模式。
+  5. 使用多数据中心设计，保持异地多活。
+
+- 请用你熟悉的编程语言写一个用户密码验证函数，Boolean checkPW（String 用户 ID，String 密码明文，String 密码密文），返回密码是否正确 boolean 值，密码加密算法使用你认为合适的加密算法。
+
+  ```java
+  package xxx;
+  
+  import org.apache.commons.codec.binary.Hex;
+  
+  import java.security.MessageDigest;
+  import java.security.NoSuchAlgorithmException;
+  
+  
+  public class CheckPW {
+      /**
+       * 密码验证
+       * @param userId
+       * @param password
+       * @param encodedPassword
+       * @return
+       * @throws NoSuchAlgorithmException
+       */
+      public static Boolean checkPW(String userId, String password, String encodedPassword) throws NoSuchAlgorithmException {
+          String encryptedStr = encodeBySHA256(userId+password);
+          return encodedPassword.equals(encryptedStr);
+      }
+  
+      /**
+       * 加密
+       * @param str
+       * @return
+       * @throws NoSuchAlgorithmException
+       */
+      private static String encodeBySHA256(String str) throws NoSuchAlgorithmException {
+          MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+          byte[] digestBytes = messageDigest.digest(str.getBytes());
+          String digestStr = Hex.encodeHexString(digestBytes);
+          return digestStr;
+      }
+  
+      public static void main(String[] args) throws NoSuchAlgorithmException {
+          String userId = "10001";
+          String pwd = "asdf1234";
+          System.out.println(encodeBySHA256(userId+pwd));
+          Boolean result = checkPW(userId, pwd, encodeBySHA256(userId+pwd));
+          System.out.printf("result:"+ result);
+      }
+  }
+  ```
+
+  
+
+
+
+## 作业二：根据当周学习情况，完成一篇学习总结
+
+![目录](/img/a/11/目录.png)
+
+![11.1 安全架构：Web 攻击与防护](/img/a/11/11.1 安全架构：Web 攻击与防护.png)
+
+![11.2 安全架构：加密与解密](/img/a/11/11.2 安全架构：加密与解密.png)
+
+![11.3 安全架构：反垃圾与风控](/img/a/11/11.3 安全架构：反垃圾与风控.png)
+
+![11.4 高可用：可用性度量](/img/a/11/11.4 高可用：可用性度量.png)
+
+![11.5 高可用：提升系统可用性的架构方案](/img/a/11/11.5 高可用：提升系统可用性的架构方案.png)
