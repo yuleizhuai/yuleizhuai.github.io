@@ -1,0 +1,64 @@
+---
+layout:     post
+title:      "第12周 数据应用（一）"
+subtitle:   "作者：于磊 来自：极客大学架构师训练营"
+date:       2020-12-09 00:00:00
+author:     "于磊"
+header-img: "img/a/index1.png"
+catalog: true
+tags:
+    - 极客大学
+    - 架构师
+
+
+
+
+---
+
+
+
+
+
+## 作业一（至少完成一项）：
+
+- 在你所在的公司（行业、领域），正在用大数据处理哪些业务？可以用大数据实现哪些价值？
+
+  公司是软件服务提供商，覆盖金融、旅游、物流、零售、医疗等行业。
+
+  我所处物流项目开发组，目前尚未使用大数据技术栈。
+
+  但正在策划 SCRM 项目，为客户提供数字化营销服务。需要使用大数据存储、分布式计算来实现。
+
+- 分析如下 HiveQL，生成的 MapReduce 执行程序，map 函数输入是什么？输出是什么，reduce 函数输入是什么？输出是什么？
+
+  ```sql
+  INSERT OVERWRITE TABLE pv_users
+  SELECT pv.pageid, u.age
+  FROM page_view pv
+     JOIN user u
+     ON (pv.userid = u.userid);
+  ```
+
+  map 函数的输入是 两个字段 pageid, age，输出是 两个字段构建在一起的 key, value 是数字 1。
+
+  reduce 函数的输入是 相同的 key 放在一起，输出是求和。
+
+
+
+
+
+## 作业二：根据当周学习情况，完成一篇学习总结
+
+![目录](/img/a/12/目录.png)
+
+![12.1 大数据原理概述](/img/a/12/12.1 大数据原理概述.png)
+
+![12.2 分布式文件系统 HDFS](/img/a/12/12.2 分布式文件系统 HDFS.png)
+
+![12.3 大数据计算框架 MapReduce - 编程模型](/img/a/12/12.3 大数据计算框架 MapReduce - 编程模型.png)
+
+![12.4 大数据计算框架 MapReduce - 架构](/img/a/12/12.4 大数据计算框架 MapReduce - 架构.png)
+
+![12.5 大数据集群资源管理系统 Yarn](/img/a/12/12.5 大数据集群资源管理系统 Yarn.png)
+
+![12.6 大数据仓库 Hive](/img/a/12/12.6 大数据仓库 Hive.png)
