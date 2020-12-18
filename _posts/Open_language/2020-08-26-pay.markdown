@@ -195,7 +195,7 @@ tags:
 
 **Jenny**: Okay, 口语里面通常把 I have got 就会变成 I've got. I've got 和 I have 相比，它也是比较轻松，比较口语的。
 
-**Lisa**: Yes, it's more natural and casural.
+**Lisa**: Yes, it's more natural`adj.自然的` and casural`adj.随便的`.
 
 **Jenny**: 接着呢，这个营业员就要找钱。
 
@@ -239,7 +239,7 @@ tags:
 
 **Jenny**: 今天的语法是数字，英语的数字表达有自己的规律，在之前的课里我们已经学过 1 到 20 的说法。这节课，主要来学习 20 以上数字的说法。
 
-**Lisa**: We're talking about numbers above 20.
+**Lisa**: We're talking about numbers above`prep.超过；在...上面` 20.
 
 **Jenny**: "几十"这个概念在英语里它有一个规律，通常是“ty”来结尾的。
 
