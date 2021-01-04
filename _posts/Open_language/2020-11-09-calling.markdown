@@ -72,7 +72,7 @@ tags:
 
 **B**: OK, what about Luckin? `好的，那瑞星咖啡呢？`
 
-**A**: Souds good. See you there. `听起来不错。瑞幸见啦。`
+**A**: Sounds good. See you there. `听起来不错。瑞幸见啦。`
 
 
 
@@ -126,7 +126,7 @@ tags:
 
 **Lisa**: She says, "I am. What's up?"
 
-**Jenny**: 那这个”I am“就是回答 Justin 问的 ”Are you free“. 那你不用说 ”I am free“, 因为刚刚已经提过 free 这个单词了，所以 你就讲”I am“.
+**Jenny**: 那这个”I am“就是回答 Justin 问的 ”Are you free“. 那你不用说 ”I am free“, 因为刚刚已经提过 free 这个单词了，所以你就讲”I am“.
 
 **Lisa**: Yeah, or "I'm not."
 
@@ -190,7 +190,7 @@ tags:
 
 **Lisa**: Yes, and it is our grammar point for today, so we'll talk more about that later.
 
-**Jenny**: 好，等一下语法再看。但是 Jusin 好像不太想去星巴克。
+**Jenny**: 好，等一下语法再看。但是 Justin 好像不太想去星巴克。
 
 **Lisa**: Yeah, he says "Mmm.... let's not. I go there all the time."
 
@@ -236,7 +236,7 @@ tags:
 
 **Lisa**: Hahaha....Well, I've seen a few.
 
-**Jenny**: 对，我们比较好，因为我们北京 office 旁边那个 Luckin 确实是由座位的。好的，那当你要建议”Luckin 好不好啊“，英文可以说？
+**Jenny**: 对，我们比较好，因为我们北京 office 旁边那个 Luckin 确实是有座位的。好的，那当你要建议”Luckin 好不好啊“，英文可以说？
 
 > what about `phr.（用于征求意见）...怎么样？`
 
@@ -364,7 +364,7 @@ tags:
 
 **Jenny**: 嗯，好。我们今天在对话里面有两个朋友。They are trying to meet for coffee.
 
-**Lisa**: Yes, but what about you guys? Do you like to meet for coffee? Do you like to meet for Karaoke?
+**Lisa**: Yes, but what about you guys? Do you like to meet for coffee? Do you like to meet for Karaoke`n.卡拉 OK`?
 
 **Jenny**: 对，大家约朋友出去都喜欢出去干嘛呢？欢迎你用今天学到的英语在留言板跟我们分享。今天的课程就到这儿，也别忘了，学好一节课自信满满，可以做一个小测验看看自己的学习成果，还有参加口语挑战和我们的主播一起练对话口语。Ok, 今天的课就到这儿，我们下次再见。
 
@@ -395,7 +395,7 @@ tags:
 
 1. Sorry, I can't meet today. `读不起，今天见不了面了。`
 2. Can we meet for dinner at 6? `我们 6 点见面吃晚饭可以吗?`
-3. She me her husband in New York. `她在纽约遇到她丈夫的。`
+3. She meet her husband in New York. `她在纽约遇到她丈夫的。`
 
 
 
