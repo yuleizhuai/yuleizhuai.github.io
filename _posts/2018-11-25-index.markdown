@@ -25,6 +25,7 @@ tags:
 | [杰克·康菲尔德, 塔拉·布拉赫《每天正念10分钟，告别心理亚健康》](https://yulei.vip/2018/09/18/mindful/) |
 | [蔡康永的情商课](https://yulei.vip/2019/02/24/index/)        |
 | [如果做一场技术演讲](https://yulei.vip/2018/12/12/How_to_make_a_good_technical_speech/) |
+| [林超：给年轻人的跨学科通识课](https://yulei.vip/2022/06/07/s/) |
 | [MongoDB for Java Developers](https://yulei.vip/2018/10/16/Java_Developers/) |
 | [M001: MongoDB Basics](https://yulei.vip/2018/10/16/Basics/) |
 | [关于 Sentinel 的整理](https://yulei.vip/2018/08/27/hello-sentinel/) |
