@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "林超：给年轻人的跨学科通识课"
-subtitle:   "Author：Fish"
+subtitle:   "作者：Fish 来自：bilibili"
 date:       2022-06-07 00:00:00
 author:     "Fish"
 header-img: "img/home-bg2.jpg"
